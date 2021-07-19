@@ -1,116 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("normalize.css");
 @import url("settings.css");
+@import url("clock-section.css");
+@import url("tasks-section.css");
 
-* {
-	margin: 0;
-	padding: 0;
+body {
+	background-color: var(--white);
 	font-family: var(--main-font-family);
 }
 
-body {
-	width: 100vw;
-	background-color: var(--main-bg-color);
-}
-
-.clock-section {
-	background-color: var(--theme-color);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 100vh;
-}
-
-.time-types {
-	list-style: none;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	width: 400px;
-	height: 50px;
-	margin-bottom: 5em;
-}
-
-.time-types li:first-of-type {
-	border-bottom: 3px solid var(--white);
-}
-
-.time-types li {
-	background-color: var(--transparent-w-1);
-	color: var(--white);
+footer {
+	font-family: monospace;
+	color: #000;
+	opacity: 0.4;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	cursor: pointer;
-	border-bottom: 3px solid transparent;
+	padding: 3em 0 2em 0;
 }
 
-.time-types li:hover {
-	background-color: var(--transparent-w-2);
+footer a {
+	color: #000;
+	text-decoration: none;
 }
 
-.seconds {
-	color: var(--white);
-	font-size: var(--big);
-	margin-bottom: 0.1em;
+footer a:hover {
+	text-decoration: underline;
 }
 
-.current-task {
-	color: var(--white);
-	font-size: var(--medium);
-	margin-bottom: 0.5em;
-	opacity: 0.7;
-}
+@media (max-width: 500px) {
+	.current-task {
+		font-size: 1.2em;
+	}
 
-.go-button {
-	background-color: var(--white);
-	color: var(--theme-color);
-	font-weight: bold;
-	border: none;
-	width: 400px;
-	border-radius: var(--border-radius);
-	padding: 0.5em;
-	font-size: 2em;
-	cursor: pointer;
-	transition: transform 1s;
-}
+	.seconds {
+		font-size: 7.8em;
+	}
 
-.go-button:hover {
-	transform: scale(1.03);
-}
+	.time-types,
+	.go-button {
+		width: 300px;
+	}
 
-input {
-	background-color: blueviolet;
+	.time-types {
+		font-size: 0.8em;
+	}
 }
-
-/* .tasks-section {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.task-items {
-	width: 80%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.tasks-section > p {
-	font-size: var(--medium);
-}
-
-.tasks-no-started {
-	list-style: none;
-	width: 300px;
-}
-.tasks-no-started li {
-	background-color: #fff;
-	box-shadow: var(--shadow);
-	margin-bottom: 1em;
-	border-radius: var(--border-radius);
-	padding: 1em;
-	cursor: pointer;
-} */

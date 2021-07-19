@@ -1,5 +1,5 @@
 :root {
-	--white: #eee;
+	--white: #fefefe;
 	--gray-1: #ddd;
 
 	--main-bg-color: #efefef;
@@ -26,7 +26,14 @@
 	--main-font-family: "Poppins", sans-serif;
 }
 
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 /* ! Configuraciones para luego solucionar */
 ul {
+	list-style: none;
 	padding-left: 0;
 }
