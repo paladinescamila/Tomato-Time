@@ -1,9 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("normalize.css");
 @import url("settings.css");
 
 * {
 	margin: 0;
 	padding: 0;
+	font-family: var(--main-font-family);
 }
 
 body {
@@ -18,6 +20,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+	height: 100vh;
 }
 
 .time-types {
@@ -49,7 +52,7 @@ body {
 
 .seconds {
 	color: var(--white);
-	font-size: var(--larger);
+	font-size: var(--big);
 	margin-bottom: 0.1em;
 }
 
@@ -57,6 +60,7 @@ body {
 	color: var(--white);
 	font-size: var(--medium);
 	margin-bottom: 0.5em;
+	opacity: 0.7;
 }
 
 .go-button {
@@ -76,7 +80,11 @@ body {
 	transform: scale(1.03);
 }
 
-.tasks-section {
+input {
+	background-color: blueviolet;
+}
+
+/* .tasks-section {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -105,9 +113,4 @@ body {
 	border-radius: var(--border-radius);
 	padding: 1em;
 	cursor: pointer;
-}
-
-.clock-section,
-.tasks-section {
-	/* width: 100%; */
-}
+} */
