@@ -1,0 +1,113 @@
+@import url("normalize.css");
+@import url("settings.css");
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100vw;
+	background-color: var(--main-bg-color);
+}
+
+.clock-section {
+	background-color: var(--theme-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.time-types {
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: 400px;
+	height: 50px;
+	margin-bottom: 5em;
+}
+
+.time-types li:first-of-type {
+	border-bottom: 3px solid var(--white);
+}
+
+.time-types li {
+	background-color: var(--transparent-w-1);
+	color: var(--white);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-bottom: 3px solid transparent;
+}
+
+.time-types li:hover {
+	background-color: var(--transparent-w-2);
+}
+
+.seconds {
+	color: var(--white);
+	font-size: var(--larger);
+	margin-bottom: 0.1em;
+}
+
+.current-task {
+	color: var(--white);
+	font-size: var(--medium);
+	margin-bottom: 0.5em;
+}
+
+.go-button {
+	background-color: var(--white);
+	color: var(--theme-color);
+	font-weight: bold;
+	border: none;
+	width: 400px;
+	border-radius: var(--border-radius);
+	padding: 0.5em;
+	font-size: 2em;
+	cursor: pointer;
+	transition: transform 1s;
+}
+
+.go-button:hover {
+	transform: scale(1.03);
+}
+
+.tasks-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.task-items {
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.tasks-section > p {
+	font-size: var(--medium);
+}
+
+.tasks-no-started {
+	list-style: none;
+	width: 300px;
+}
+.tasks-no-started li {
+	background-color: #fff;
+	box-shadow: var(--shadow);
+	margin-bottom: 1em;
+	border-radius: var(--border-radius);
+	padding: 1em;
+	cursor: pointer;
+}
+
+.clock-section,
+.tasks-section {
+	/* width: 100%; */
+}
