@@ -1,5 +1,6 @@
 const timerContainer = document.getElementById("timer");
 const clockSection = document.getElementById("clock-section");
+const currentTask = document.getElementById("current-task");
 
 const workButton = document.getElementById("work-button");
 const shortBreakButton = document.getElementById("short-break-button");
@@ -80,18 +81,32 @@ goButton.addEventListener("click", (e) => {
 	}
 });
 
-let noStartedTasks = tasks.filter((t) => t.status === 1),
-	inProgressTasks = tasks.filter((t) => t.status === 2),
-	completedTasks = tasks.filter((t) => t.status === 3);
+const fillTasks = (status, container) => {
+	let tasksList = tasks.filter((t) => t.status === status),
+		tasksHTML = "";
 
-const fillTasks = (tasksList, tasksContainer) => {
-	let tasksHTML = "";
 	for (let i = 0; i < tasksList.length; i++) {
-		tasksHTML += `<li><input type="checkbox" ${tasksList[i].status === 3 ? "checked" : ""} /> ${tasksList[i].description}</li>`;
+		tasksHTML += `<li id="t-${status}-${i}"><input id="c-${status}-${i}" type="checkbox" ${status === 3 ? "checked" : ""} /> ${tasksList[i].description}</li>`;
 	}
-	tasksContainer.innerHTML = tasksHTML;
+
+	container.innerHTML = tasksHTML;
+
+	for (let i = 0; i < tasksList.length; i++) {
+		let t = document.getElementById(`t-${status}-${i}`),
+			c = document.getElementById(`c-${status}-${i}`);
+		t.addEventListener("click", (e) => {
+			currentTask.innerHTML = tasksList[i].description;
+		});
+		c.addEventListener("change", (e) => {
+			if (c.checked) {
+				console.log("ERA UNA TAREA NO COMPLETADA");
+			} else {
+				console.log("ERA UNA TAREA COMPLETA");
+			}
+		});
+	}
 };
 
-fillTasks(noStartedTasks, noStartedContainer);
-fillTasks(inProgressTasks, inProgressContainer);
-fillTasks(completedTasks, completedContainer);
+fillTasks(1, noStartedContainer);
+fillTasks(2, inProgressContainer);
+fillTasks(3, completedContainer);

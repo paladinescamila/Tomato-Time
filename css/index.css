@@ -28,6 +28,19 @@ footer a:hover {
 	text-decoration: underline;
 }
 
+body::-webkit-scrollbar-track {
+	background-color: var(--theme-color);
+}
+
+body::-webkit-scrollbar {
+	width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--transparent-w-3);
+}
+
 @media (max-width: 1200px) {
 	.tasks-container {
 		grid-template-columns: repeat(2, 1fr);

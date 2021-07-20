@@ -67,4 +67,10 @@
 	box-shadow: var(--shadow);
 	cursor: pointer;
 	background-color: var(--main-bg-color);
+	display: flex;
+	align-items: center;
+}
+
+.tasks-list li > input {
+	margin-right: 10px;
 }
