@@ -13,7 +13,7 @@
 	color: var(--transparent-w-5);
 }
 
-.seconds {
+.timer {
 	font-size: 13em;
 	color: var(--white);
 }

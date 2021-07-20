@@ -14,17 +14,14 @@
 
 .tasks-container {
 	padding: 1em 5em;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: space-evenly;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 2em;
 }
 
 .no-started,
 .in-progress,
 .completed {
-	width: 400px;
-	margin: 1em;
 	padding: 1em;
 	border-radius: var(--border-radius);
 }
@@ -70,23 +67,4 @@
 	box-shadow: var(--shadow);
 	cursor: pointer;
 	background-color: var(--main-bg-color);
-}
-
-@media (max-width: 650px) {
-	.current-task {
-		font-size: 1.6em;
-	}
-
-	.seconds {
-		font-size: 10.4em;
-	}
-
-	.time-types,
-	.go-button {
-		width: 400px;
-	}
-
-	.tasks-container {
-		padding: 1em;
-	}
 }

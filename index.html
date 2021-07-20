@@ -8,15 +8,15 @@
 		<link rel="stylesheet" href="css/index.css" />
 	</head>
 	<body>
-		<div class="clock-section">
+		<div class="clock-section" id="clock-section">
 			<p class="current-task">This is my first Task</p>
-			<div class="seconds">25:00</div>
+			<div class="timer" id="timer"></div>
 			<ul class="time-types">
 				<li id="work-button">Work</li>
 				<li id="short-break-button">Short Break</li>
 				<li id="long-break-button">Long Break</li>
 			</ul>
-			<button class="go-button">Go</button>
+			<button class="go-button" id="go-button">Go</button>
 		</div>
 		<div class="tasks-section">
 			<p class="title">My tasks</p>
@@ -39,6 +39,7 @@
 			<p>Made with ❤ by <a href="https://github.com/paladinescamila">Camila Paladines</a></p>
 		</footer>
 	</body>
+	<script src="js/settings.js"></script>
 	<script src="js/tasks.js"></script>
 	<script src="js/index.js"></script>
 </html>
