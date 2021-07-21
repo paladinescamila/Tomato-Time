@@ -21,11 +21,11 @@ const taskTemplate = (task) => {
 		<li id="${task.id}">
 			<div>
 				<input id="c${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
-				<input type="text" value="${task.description}">
+				<input id="t${task.id}"type="text" value="${task.description}">
 			</div>
 			<div>
-				<img id="rename-button" src="img/rename.png">
-				<img id="delete-button" src="img/delete.png">
+				<img id="r${task.id}" src="img/rename.png">
+				<img id="d${task.id}" src="img/delete.png">
 			</div>
 		</li>
 	`;
@@ -53,40 +53,41 @@ const run = (time) => {
 	}, 1000);
 };
 
+const drawScreen = (type, color, time) => {
+	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
+	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
+	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";
+	clockSection.style.backgroundColor = color;
+	goButton.style.color = color;
+	timerContainer.innerHTML = `${format(time)}:00`;
+};
+
 workButton.addEventListener("click", (e) => {
-	workButton.style.borderBottom = "3px solid var(--white)";
-	shortBreakButton.style.borderBottom = "3px solid transparent";
-	longBreakButton.style.borderBottom = "3px solid transparent";
-	clockSection.style.backgroundColor = workColor;
-	goButton.style.color = workColor;
+	drawScreen(1, workColor, workTime);
 	timeType = 1;
-	timerContainer.innerHTML = `${format(workTime)}:00`;
 });
 
 shortBreakButton.addEventListener("click", (e) => {
-	workButton.style.borderBottom = "3px solid transparent";
-	shortBreakButton.style.borderBottom = "3px solid var(--white)";
-	longBreakButton.style.borderBottom = "3px solid transparent";
-	clockSection.style.backgroundColor = shortBreakColor;
-	goButton.style.color = shortBreakColor;
+	drawScreen(2, shortBreakColor, shortBreakTime);
 	timeType = 2;
-	timerContainer.innerHTML = `${format(shortBreakTime)}:00`;
 });
 
 longBreakButton.addEventListener("click", (e) => {
-	workButton.style.borderBottom = "3px solid transparent";
-	shortBreakButton.style.borderBottom = "3px solid transparent";
-	longBreakButton.style.borderBottom = "3px solid var(--white)";
-	clockSection.style.backgroundColor = longBreakColor;
-	goButton.style.color = longBreakColor;
+	drawScreen(3, longBreakColor, longBreakTime);
 	timeType = 3;
-	timerContainer.innerHTML = `${format(longBreakTime)}:00`;
 });
 
-goButton.addEventListener("click", (e) => {
+goButton.addEventListener("click", async (e) => {
 	switch (timeType) {
 		case 1:
-			run(workTime);
+			let algo = run(workTime);
+			if (autoStartBreaks) {
+				console.log("AUTOSTART");
+				// drawScreen(2, shortBreakColor, shortBreakTime);
+				// run(shortBreakButton);
+				// drawScreen(3, longBreakColor, longBreakTime);
+				// run(longBreakButton);
+			}
 			break;
 		case 2:
 			run(shortBreakTime);
@@ -148,12 +149,30 @@ const fillTasks = () => {
 		document.getElementById(tasks[i].id).addEventListener("click", (e) => {
 			currentTask.innerHTML = tasks[i].description;
 		});
+
 		let checkbox = document.getElementById(`c${tasks[i].id}`);
 		checkbox.addEventListener("change", (e) => {
 			tasks[i].done = checkbox.checked;
 		});
-		document.getElementById("rename-button").addEventListener("click", (e) => {
-			newTaskValue.style.pointerEvents = "auto";
+
+		document.getElementById(`t${tasks[i].id}`).addEventListener("keyup", (e) => {
+			if (e.keyCode === 13) {
+				event.preventDefault();
+				console.log("CAMBIÓ EL NOMBRE DE LA TAREA");
+			}
+		});
+
+		document.getElementById(`r${tasks[i].id}`).addEventListener("click", (e) => {
+			let element = document.getElementById(`t${tasks[i].id}`);
+			element.style.pointerEvents = "auto";
+			element.style.backgroundColor = "#eee";
+		});
+
+		document.getElementById(`d${tasks[i].id}`).addEventListener("click", (e) => {
+			// TODO: Falta hacer que también quite el nombre de la tarea actual si está seleccionada por una que le siga, porque en el contador se va a seguir mostrando esa tarea.
+			document.getElementById(tasks[i].id).style.display = "none";
+			tasks.splice(i);
+			// ! ERROR: Hay un problema cuando no encuentra el elemento tasls[i] en los demás addEventListener.
 		});
 	}
 };

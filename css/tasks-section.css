@@ -46,9 +46,8 @@
 
 .tasks-container li input[type="text"] {
 	border: none;
-	width: 95%;
+	width: 90%;
 	pointer-events: none;
-	/* background-color: tomato; */
 }
 
 .tasks-container li > div:nth-of-type(2) {

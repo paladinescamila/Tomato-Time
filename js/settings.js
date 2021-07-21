@@ -5,3 +5,7 @@ let workTime = 2,
 let workColor = "#E74545",
 	shortBreakColor = "#1a9aa3",
 	longBreakColor = "#2a60bd";
+
+let longBreakInterval = 2,
+	autoStartBreaks = true,
+	autoStartPomodoros;
