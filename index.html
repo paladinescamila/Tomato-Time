@@ -20,20 +20,13 @@
 		</div>
 		<div class="tasks-section">
 			<p class="title">My tasks</p>
-			<div class="tasks-container">
-				<div class="no-started">
-					<p class="list-title">No started</p>
-					<ul class="tasks-list" id="no-started"></ul>
-				</div>
-				<div class="in-progress">
-					<p class="list-title">In progress</p>
-					<ul class="tasks-list" id="in-progress"></ul>
-				</div>
-				<div class="completed">
-					<p class="list-title">Completed</p>
-					<ul class="tasks-list" id="completed"></ul>
-				</div>
+			<ul class="tasks-container" id="tasks-container"></ul>
+			<div class="new-container" id="new-container">
+				<input type="text" name="" placeholder="What are you going to do?" id="new-task" class="new-task" />
+				<button id="cancel-task">Cancel</button>
+				<button id="save-task">Save</button>
 			</div>
+			<button id="add-task" class="add-task">Add task</button>
 		</div>
 		<footer>
 			<p>Made with ❤ by <a href="https://github.com/paladinescamila">Camila Paladines</a></p>

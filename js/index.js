@@ -7,11 +7,29 @@ const shortBreakButton = document.getElementById("short-break-button");
 const longBreakButton = document.getElementById("long-break-button");
 const goButton = document.getElementById("go-button");
 
-const noStartedContainer = document.getElementById("no-started");
-const inProgressContainer = document.getElementById("in-progress");
-const completedContainer = document.getElementById("completed");
+const tasksContainer = document.getElementById("tasks-container");
+const addTaskButton = document.getElementById("add-task");
+const newContainer = document.getElementById("new-container");
+const cancelTaskButton = document.getElementById("cancel-task");
+const saveTaskButton = document.getElementById("save-task");
+const newTaskValue = document.getElementById("new-task");
 
 const format = (n) => (n < 10 ? "0" + n : n);
+
+const taskTemplate = (task) => {
+	return `
+		<li id="${task.id}">
+			<div>
+				<input id="c${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
+				<input type="text" value="${task.description}">
+			</div>
+			<div>
+				<img id="rename-button" src="img/rename.png">
+				<img id="delete-button" src="img/delete.png">
+			</div>
+		</li>
+	`;
+};
 
 let timeType = 1;
 timerContainer.innerHTML = `${format(workTime)}:00`;
@@ -81,32 +99,63 @@ goButton.addEventListener("click", (e) => {
 	}
 });
 
-const fillTasks = (status, container) => {
-	let tasksList = tasks.filter((t) => t.status === status),
-		tasksHTML = "";
+addTaskButton.addEventListener("click", () => {
+	addTaskButton.style.display = "none";
+	newContainer.style.display = "grid";
+});
 
-	for (let i = 0; i < tasksList.length; i++) {
-		tasksHTML += `<li id="t-${status}-${i}"><input id="c-${status}-${i}" type="checkbox" ${status === 3 ? "checked" : ""} /> ${tasksList[i].description}</li>`;
+cancelTaskButton.addEventListener("click", () => {
+	addTaskButton.style.display = "block";
+	newContainer.style.display = "none";
+	newTaskValue.value = "";
+});
+
+saveTaskButton.addEventListener("click", () => {
+	const currentDate = new Date();
+
+	task = {
+		id: currentDate.getTime(),
+		description: newTaskValue.value,
+		done: false,
+		pomodoros: 0,
+	};
+
+	tasks.push(task);
+	tasksContainer.innerHTML += taskTemplate(task);
+
+	addTaskButton.style.display = "block";
+	newContainer.style.display = "none";
+	newTaskValue.value = "";
+});
+
+newTaskValue.addEventListener("keyup", (e) => {
+	if (e.keyCode === 13) {
+		event.preventDefault();
+		saveTaskButton.click();
+	}
+});
+
+const fillTasks = () => {
+	let tasksHTML = "";
+
+	for (let i = 0; i < tasks.length; i++) {
+		tasksHTML += taskTemplate(tasks[i]);
 	}
 
-	container.innerHTML = tasksHTML;
+	tasksContainer.innerHTML = tasksHTML;
 
-	for (let i = 0; i < tasksList.length; i++) {
-		let t = document.getElementById(`t-${status}-${i}`),
-			c = document.getElementById(`c-${status}-${i}`);
-		t.addEventListener("click", (e) => {
-			currentTask.innerHTML = tasksList[i].description;
+	for (let i = 0; i < tasks.length; i++) {
+		document.getElementById(tasks[i].id).addEventListener("click", (e) => {
+			currentTask.innerHTML = tasks[i].description;
 		});
-		c.addEventListener("change", (e) => {
-			if (c.checked) {
-				console.log("ERA UNA TAREA NO COMPLETADA");
-			} else {
-				console.log("ERA UNA TAREA COMPLETA");
-			}
+		let checkbox = document.getElementById(`c${tasks[i].id}`);
+		checkbox.addEventListener("change", (e) => {
+			tasks[i].done = checkbox.checked;
+		});
+		document.getElementById("rename-button").addEventListener("click", (e) => {
+			newTaskValue.style.pointerEvents = "auto";
 		});
 	}
 };
 
-fillTasks(1, noStartedContainer);
-fillTasks(2, inProgressContainer);
-fillTasks(3, completedContainer);
+fillTasks();
