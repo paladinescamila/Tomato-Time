@@ -1,4 +1,4 @@
-let workTime = 2,
+let workTime = 1,
 	shortBreakTime = 1,
 	longBreakTime = 3;
 

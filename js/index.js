@@ -80,7 +80,7 @@ longBreakButton.addEventListener("click", (e) => {
 goButton.addEventListener("click", async (e) => {
 	switch (timeType) {
 		case 1:
-			let algo = run(workTime);
+			run(workTime);
 			if (autoStartBreaks) {
 				console.log("AUTOSTART");
 				// drawScreen(2, shortBreakColor, shortBreakTime);
