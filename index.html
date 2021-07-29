@@ -8,6 +8,10 @@
 		<link rel="stylesheet" href="css/index.css" />
 	</head>
 	<body>
+		<header>
+			<p>🍅 Tomato Timer</p>
+			<button id="settings"><img src="img/settings.svg" alt="Settings" /></button>
+		</header>
 		<div class="clock-section" id="clock-section">
 			<p class="current-task" id="current-task">This is my first Task</p>
 			<div class="timer" id="timer"></div>
@@ -31,8 +35,40 @@
 		<footer class="signature">
 			<p>Made with ❤ by <a target="_blanck" href="https://github.com/paladinescamila">Camila Paladines</a></p>
 		</footer>
+		<div class="dark-bg" id="display-settings">
+			<div class="settings-container">
+				<p>Settings</p>
+				<div class="work-container">
+					<p>Work</p>
+					<input class="number-input" type="number" id="work-value" />
+				</div>
+				<div class="short-container">
+					<p>Short Break</p>
+					<input class="number-input" type="number" id="short-break-value" />
+				</div>
+				<div class="long-container">
+					<p>Long Break</p>
+					<input class="number-input" type="number" id="long-break-value" />
+				</div>
+				<div class="auto-inputs as-work-container">
+					<p>Auto start pomodoros?</p>
+					<input type="checkbox" id="auto-work-value" />
+				</div>
+				<div class="auto-inputs as-break-container">
+					<p>Auto start breaks?</p>
+					<input type="checkbox" id="auto-break-value" />
+				</div>
+				<div class="auto-inputs interval-container">
+					<p>Long Break interval</p>
+					<input class="number-input" type="number" id="interval-value" />
+				</div>
+				<button id="cancel-settings" class="cancel-settings">Cancel</button>
+				<button id="save-settings" class="save-settings">Save</button>
+				<button class="x-cancel" id="x-cancel">x</button>
+			</div>
+		</div>
+		<script src="js/settings.js"></script>
+		<script src="js/tasks.js"></script>
+		<script src="js/index.js"></script>
 	</body>
-	<script src="js/settings.js"></script>
-	<script src="js/tasks.js"></script>
-	<script src="js/index.js"></script>
 </html>

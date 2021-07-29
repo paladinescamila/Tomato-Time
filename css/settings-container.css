@@ -1,0 +1,147 @@
+.dark-bg {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.settings-container {
+	width: 600px;
+	height: 500px;
+	padding: 2em;
+	border-radius: var(--border-radius);
+	background-color: var(--white);
+	display: grid;
+	grid-gap: 1em;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-areas:
+		"title title title"
+		"work short long"
+		"aswork aswork aswork"
+		"asbreak asbreak asbreak"
+		"interval interval interval"
+		"none cancel save";
+	position: relative;
+}
+
+.settings-container > p:first-of-type {
+	grid-area: title;
+	display: flex;
+	justify-content: center;
+	font-size: 1.5em;
+	font-weight: 700;
+	/* background-color: royalblue; */
+}
+
+.work-container {
+	grid-area: work;
+	/* background-color: salmon; */
+}
+
+.short-container {
+	grid-area: short;
+	/* background-color: greenyellow; */
+}
+
+.long-container {
+	grid-area: long;
+	/* background-color: blueviolet; */
+}
+
+.as-work-container {
+	grid-area: aswork;
+	/* background-color: brown; */
+}
+
+.as-break-container {
+	grid-area: asbreak;
+	/* background-color: yellow; */
+}
+
+.interval-container {
+	grid-area: interval;
+	/* background-color: aqua; */
+}
+
+.interval-container input {
+	margin: 0;
+	width: 50%;
+}
+
+.work-container,
+.short-container,
+.long-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.auto-inputs {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.number-input {
+	padding: 0.5em;
+	background-color: #eee;
+	border: 2px solid transparent;
+	margin-top: 1em;
+	width: 100%;
+}
+
+.number-input:focus {
+	border: 2px solid var(--gray-1);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+.cancel-settings,
+.save-settings {
+	border: none;
+	cursor: pointer;
+	font-weight: 700;
+	border-radius: var(--border-radius);
+}
+
+.cancel-settings {
+	grid-area: cancel;
+	background-color: var(--gray-1);
+}
+
+.save-settings {
+	grid-area: save;
+	color: var(--white);
+	background-color: var(--theme-color);
+}
+
+.x-cancel {
+	border: none;
+	background-color: transparent;
+	color: var(--black);
+	font-weight: 700;
+	font-size: 1.5em;
+	cursor: pointer;
+	opacity: 0.7;
+	position: absolute;
+	top: 1em;
+	right: 1em;
+}
+
+.x-cancel:hover {
+	opacity: 1;
+}

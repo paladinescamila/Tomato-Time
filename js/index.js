@@ -14,6 +14,20 @@ const cancelTaskButton = document.getElementById("cancel-task");
 const saveTaskButton = document.getElementById("save-task");
 const newTaskValue = document.getElementById("new-task");
 
+const settingsButton = document.getElementById("settings");
+const displaySettings = document.getElementById("display-settings");
+
+const workValue = document.getElementById("work-value");
+const shortBreakValue = document.getElementById("short-break-value");
+const longBreakValue = document.getElementById("long-break-value");
+const intervalValue = document.getElementById("interval-value");
+const autoWorkValue = document.getElementById("auto-work-value");
+const autoBreakValue = document.getElementById("auto-break-value");
+
+const xCancelButton = document.getElementById("x-cancel");
+const cancelSettingsButton = document.getElementById("cancel-settings");
+const saveSettingsButton = document.getElementById("save-settings");
+
 const format = (n) => (n < 10 ? "0" + n : n);
 
 const taskTemplate = (task) => {
@@ -57,8 +71,7 @@ const drawScreen = (type, color, time) => {
 	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
 	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
 	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";
-	clockSection.style.backgroundColor = color;
-	goButton.style.color = color;
+	document.querySelector(":root").style.setProperty("--theme-color", color);
 	timerContainer.innerHTML = `${format(time)}:00`;
 };
 
@@ -178,3 +191,23 @@ const fillTasks = () => {
 };
 
 fillTasks();
+
+settingsButton.addEventListener("click", (e) => {
+	workValue.value = workTime;
+	shortBreakValue.value = shortBreakTime;
+	longBreakValue.value = longBreakTime;
+	intervalValue.value = longBreakInterval;
+	autoWorkValue.checked = autoStartWork;
+	autoBreakValue.checked = autoStartBreaks;
+	displaySettings.style.display = "flex";
+});
+
+xCancelButton.addEventListener("click", (e) => cancelSettingsButton.click());
+
+cancelSettingsButton.addEventListener("click", (e) => {
+	displaySettings.style.display = "none";
+});
+
+saveSettingsButton.addEventListener("click", (e) => {
+	displaySettings.style.display = "none";
+});

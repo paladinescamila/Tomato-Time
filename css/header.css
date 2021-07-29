@@ -1,0 +1,16 @@
+header {
+	height: 10vh;
+	color: var(--white);
+	font-weight: 700;
+	font-size: 1.5em;
+	background-color: var(--theme-color);
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+}
+
+header button {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
