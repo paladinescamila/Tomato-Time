@@ -1,7 +1,7 @@
 .dark-bg {
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.7);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -25,7 +25,7 @@
 		"aswork aswork aswork"
 		"asbreak asbreak asbreak"
 		"interval interval interval"
-		"none cancel save";
+		"none none save";
 	position: relative;
 }
 
@@ -110,23 +110,18 @@ input[type="number"] {
 	-moz-appearance: textfield;
 }
 
-.cancel-settings,
 .save-settings {
 	border: none;
 	cursor: pointer;
 	font-weight: 700;
 	border-radius: var(--border-radius);
-}
-
-.cancel-settings {
-	grid-area: cancel;
-	background-color: var(--gray-1);
-}
-
-.save-settings {
-	grid-area: save;
 	color: var(--white);
 	background-color: var(--theme-color);
+	grid-area: save;
+}
+
+.save-settings:hover {
+	opacity: 0.95;
 }
 
 .x-cancel {
@@ -136,12 +131,16 @@ input[type="number"] {
 	font-weight: 700;
 	font-size: 1.5em;
 	cursor: pointer;
-	opacity: 0.7;
 	position: absolute;
 	top: 1em;
 	right: 1em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 20px;
+	height: 20px;
 }
 
 .x-cancel:hover {
-	opacity: 1;
+	opacity: 0.8;
 }
