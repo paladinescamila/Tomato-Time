@@ -1,11 +1,14 @@
-let workTime = 3,
-	shortBreakTime = 1,
-	longBreakTime = 2;
+// Minutes
+let workTime = 25,
+	shortBreakTime = 5,
+	longBreakTime = 10;
 
+// Colors
 let workColor = "#E74545",
 	shortBreakColor = "#1a9aa3",
 	longBreakColor = "#2a60bd";
 
-let longBreakInterval = 4,
-	autoStartWork = true,
-	autoStartBreaks = true;
+// Other
+let autoStartWork = true,
+	autoStartBreaks = true,
+	longBreakInterval = 4;

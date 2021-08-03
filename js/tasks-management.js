@@ -1,5 +1,4 @@
 const currentTask = document.getElementById("current-task");
-
 const tasksContainer = document.getElementById("tasks-container");
 const addTaskButton = document.getElementById("add-task");
 const newContainer = document.getElementById("new-container");
@@ -24,52 +23,48 @@ const taskTemplate = (task) => {
 	`;
 };
 
-const fillTasks = () => {
-	let tasksHTML = "";
+const setTaskSettings = (task) => {
+	// Set a task to work on it
+	document.getElementById(task.id).addEventListener("click", (e) => {
+		currentTask.innerHTML = task.description;
+	});
 
-	for (let i = 0; i < tasks.length; i++) {
-		tasksHTML += taskTemplate(tasks[i]);
-	}
+	// Check or uncheck a task
+	let checkbox = document.getElementById(`c${task.id}`);
+	checkbox.addEventListener("change", (e) => {
+		task.done = checkbox.checked;
+		console.log(checkbox.checked);
+	});
 
-	tasksContainer.innerHTML = tasksHTML;
+	// Save the new name of the task
+	document.getElementById(`t${task.id}`).addEventListener("keyup", (e) => {
+		if (e.keyCode === 13) {
+			event.preventDefault();
+			console.log("CAMBIÓ EL NOMBRE DE LA TAREA");
+		}
+	});
+	// Rename a task
+	document.getElementById(`r${task.id}`).addEventListener("click", (e) => {
+		let element = document.getElementById(`t${task.id}`);
+		element.style.pointerEvents = "auto";
+		element.style.backgroundColor = "#eee";
+	});
 
-	for (let i = 0; i < tasks.length; i++) {
-		document.getElementById(tasks[i].id).addEventListener("click", (e) => {
-			currentTask.innerHTML = tasks[i].description;
-		});
-
-		let checkbox = document.getElementById(`c${tasks[i].id}`);
-		checkbox.addEventListener("change", (e) => {
-			tasks[i].done = checkbox.checked;
-		});
-
-		document.getElementById(`t${tasks[i].id}`).addEventListener("keyup", (e) => {
-			if (e.keyCode === 13) {
-				event.preventDefault();
-				console.log("CAMBIÓ EL NOMBRE DE LA TAREA");
-			}
-		});
-
-		document.getElementById(`r${tasks[i].id}`).addEventListener("click", (e) => {
-			let element = document.getElementById(`t${tasks[i].id}`);
-			element.style.pointerEvents = "auto";
-			element.style.backgroundColor = "#eee";
-		});
-
-		document.getElementById(`d${tasks[i].id}`).addEventListener("click", (e) => {
-			// TODO: Falta hacer que también quite el nombre de la tarea actual si está seleccionada por una que le siga, porque en el contador se va a seguir mostrando esa tarea.
-			document.getElementById(tasks[i].id).style.display = "none";
-			tasks.splice(i);
-			// ! ERROR: Hay un problema cuando no encuentra el elemento tasls[i] en los demás addEventListener.
-		});
-	}
+	// Delete a task
+	document.getElementById(`d${task.id}`).addEventListener("click", (e) => {
+		// TODO: Falta hacer que también quite el nombre de la tarea actual si está seleccionada por una que le siga, porque en el contador se va a seguir mostrando esa tarea.
+		document.getElementById(task.id).style.display = "none";
+		task.deleted = true;
+		console.log(task);
+	});
 };
-
-fillTasks();
 
 addTaskButton.addEventListener("click", () => {
 	addTaskButton.style.display = "none";
 	newContainer.style.display = "grid";
+	// saveTaskButton.style.opacity = 0.5;
+	// newTaskValue.style.autofocus = true;
+	// ! FALTA HACER QUE NO LE PERMITA PRESIONAR EL BOTÓN
 });
 
 cancelTaskButton.addEventListener("click", () => {
@@ -86,14 +81,17 @@ saveTaskButton.addEventListener("click", () => {
 		description: newTaskValue.value,
 		done: false,
 		pomodoros: 0,
+		deleted: false,
 	};
 
 	tasks.push(task);
 	tasksContainer.innerHTML += taskTemplate(task);
+	setTaskSettings(task);
 
 	addTaskButton.style.display = "block";
 	newContainer.style.display = "none";
 	newTaskValue.value = "";
+	// ! LOS EVENTOS DE UNA TAREA NO FUNCIONAN A MENOS DE QUE LA HAYA CREADO DE ÚLTIMA :'(
 });
 
 newTaskValue.addEventListener("keyup", (e) => {
