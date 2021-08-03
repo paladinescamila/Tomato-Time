@@ -9,6 +9,10 @@ header {
 	justify-content: space-around;
 }
 
+header > p:first-of-type {
+	cursor: context-menu;
+}
+
 header button {
 	border: none;
 	background-color: transparent;
