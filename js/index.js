@@ -24,6 +24,7 @@ const run = (time) => {
 		}
 
 		if (minutes === -1) {
+			timerContainer.innerHTML = `${format(time)}:00`;
 			clearInterval(interval);
 		}
 	}, 1000);

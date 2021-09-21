@@ -55,12 +55,30 @@
 
 .as-work-container {
 	grid-area: aswork;
+	position: relative;
 	/* background-color: brown; */
 }
 
 .as-break-container {
 	grid-area: asbreak;
+	position: relative;
 	/* background-color: yellow; */
+}
+
+.as-work-container input,
+.as-break-container input {
+	display: none;
+}
+
+.as-work-container label:after,
+.as-break-container label:after {
+	content: "";
+	width: 20px;
+	height: 20px;
+	border: 2px solid var(--theme-color);
+	position: absolute;
+	right: 0;
+	cursor: pointer;
 }
 
 .interval-container {

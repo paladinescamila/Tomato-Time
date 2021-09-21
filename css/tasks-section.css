@@ -88,6 +88,7 @@
 	padding: 1em;
 	border-radius: var(--border-radius);
 	background-color: #fff;
+	box-shadow: var(--shadow);
 	display: none;
 	grid-gap: 1em;
 	grid-template-columns: 3fr repeat(2, 1fr);

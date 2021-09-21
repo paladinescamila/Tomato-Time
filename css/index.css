@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Sans+Mono&display=swap");
 @import url("normalize.css");
 @import url("settings.css");
 @import url("header.css");
@@ -55,7 +56,7 @@ body::-webkit-scrollbar-thumb {
 	}
 
 	.timer {
-		font-size: 10.4em;
+		font-size: 9em;
 	}
 
 	.time-types,
@@ -78,7 +79,7 @@ body::-webkit-scrollbar-thumb {
 	}
 
 	.timer {
-		font-size: 7.8em;
+		font-size: 6.5em;
 	}
 
 	.time-types,
