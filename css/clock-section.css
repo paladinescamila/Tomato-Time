@@ -56,9 +56,8 @@
 	background-color: var(--white);
 	color: var(--theme-color);
 	cursor: pointer;
-	transition: transform 1s;
 }
 
 .go-button:hover {
-	transform: scale(1.01);
+	opacity: 0.9;
 }
