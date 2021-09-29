@@ -9,6 +9,6 @@ let workColor = "#E74545",
 	longBreakColor = "#456eb5";
 
 // Other
-let autoStartWork = false,
-	autoStartBreaks = false,
+let autoStartWork = true,
+	autoStartBreaks = true,
 	longBreakInterval = 4;

@@ -25,10 +25,10 @@ cancelSettingsButton.addEventListener("click", (e) => {
 });
 
 saveSettingsButton.addEventListener("click", (e) => {
-	workTime = workValue.value;
-	shortBreakTime = shortBreakValue.value;
-	longBreakTime = longBreakValue.value;
-	longBreakInterval = intervalValue.value;
+	workTime = workValue.value <= 1440 ? workValue.value : 25;
+	shortBreakTime = shortBreakValue.value <= 720 ? shortBreakValue.value : 5;
+	longBreakTime = longBreakValue.value <= 720 ? longBreakValue.value : 10;
+	longBreakInterval = intervalValue.value <= 100 ? intervalValue.value : 4;
 	autoStartWork = autoWorkValue.checked;
 	autoStartBreaks = autoBreakValue.checked;
 

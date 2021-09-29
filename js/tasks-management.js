@@ -60,11 +60,13 @@ const setTaskSettings = (task) => {
 };
 
 addTaskButton.addEventListener("click", () => {
-	addTaskButton.style.display = "none";
-	newContainer.style.display = "grid";
-	// saveTaskButton.style.opacity = 0.5;
-	// newTaskValue.style.autofocus = true;
-	// ! FALTA HACER QUE NO LE PERMITA PRESIONAR EL BOTÓN
+	if (tasks.length <= 50){
+		addTaskButton.style.display = "none";
+		newContainer.style.display = "grid";
+		newTaskValue.focus();
+		// saveTaskButton.style.opacity = 0.5;
+		// ! FALTA HACER QUE NO LE PERMITA PRESIONAR EL BOTÓN
+	}
 });
 
 cancelTaskButton.addEventListener("click", () => {
@@ -74,13 +76,11 @@ cancelTaskButton.addEventListener("click", () => {
 });
 
 saveTaskButton.addEventListener("click", () => {
-	const currentDate = new Date();
 
-	task = {
-		id: currentDate.getTime(),
-		description: newTaskValue.value,
+	let task = {
+		id: new Date().getTime(),
+		description: newTaskValue.value.slice(0, 50),
 		done: false,
-		pomodoros: 0,
 		deleted: false,
 	};
 

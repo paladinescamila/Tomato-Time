@@ -1,5 +1,4 @@
 const timerContainer = document.getElementById("timer");
-
 const workButton = document.getElementById("work-button");
 const shortBreakButton = document.getElementById("short-break-button");
 const longBreakButton = document.getElementById("long-break-button");
