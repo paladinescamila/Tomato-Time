@@ -44,6 +44,7 @@ const drawScreen = (type) => {
 	timeType = type;
 	minutes = times[type - 1];
 	seconds = 59;
+	goButton.innerHTML = "Go";
 	clearInterval(interval);
 
 	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
