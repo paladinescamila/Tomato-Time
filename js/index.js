@@ -52,16 +52,22 @@ const drawScreen = (type) => {
 workButton.addEventListener("click", (e) => {
 	drawScreen(1);
 	timeType = 1;
+	minutes = workTime - 1;
+	seconds = 59;
 });
 
 shortBreakButton.addEventListener("click", (e) => {
 	drawScreen(2);
 	timeType = 2;
+	minutes = shortBreakTime - 1;
+	seconds = 59;
 });
 
 longBreakButton.addEventListener("click", (e) => {
 	drawScreen(3);
 	timeType = 3;
+	minutes = longBreakTime - 1;
+	seconds = 59;
 });
 
 goButton.addEventListener("click", (e) => {
@@ -73,7 +79,7 @@ goButton.addEventListener("click", (e) => {
 		switch (timeType) {
 			// Work Time
 			case 1:
-				if (minutes === -1){
+				if (minutes === -1) {
 					minutes = workTime - 1;
 					seconds = 59;
 				}
@@ -87,7 +93,7 @@ goButton.addEventListener("click", (e) => {
 
 			// Short Break Time
 			case 2:
-				if (minutes === -1){
+				if (minutes === -1) {
 					minutes = shortBreakTime - 1;
 					seconds = 59;
 				}
@@ -107,7 +113,7 @@ goButton.addEventListener("click", (e) => {
 
 			// Long Break Time
 			case 3:
-				if (minutes === -1){
+				if (minutes === -1) {
 					minutes = longBreakTime - 1;
 					seconds = 59;
 				}
