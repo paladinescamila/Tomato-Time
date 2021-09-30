@@ -54,6 +54,8 @@ const setTaskSettings = () => {
 					oldInput = `<input id="description-${tasks[i].id}" type="text" value="${tasks[i].description}">`,
 					newInput = `<input id="description-${tasks[i].id}" type="text" value="${element.value}">`;
 
+				if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = element.value;
+
 				tasks[i].description = element.value;
 				tasksContainer.innerHTML = tasksContainer.innerHTML.replace(oldInput, newInput);
 				document.getElementById(`description-${tasks[i].id}`).blur();
@@ -64,9 +66,7 @@ const setTaskSettings = () => {
 		document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
 			document.getElementById(tasks[i].id).style.display = "none";
 			tasks[i].deleted = true;
-			if (tasks[i].description === currentTask.innerHTML) {
-				currentTask.innerHTML = "Time to focus!";
-			}
+			if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = "Time to focus!";
 		});
 	}
 };
