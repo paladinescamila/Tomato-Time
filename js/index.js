@@ -44,8 +44,8 @@ const drawScreen = (type) => {
 	timeType = type;
 	minutes = times[type - 1];
 	seconds = 59;
-	goButton.innerHTML = "Go";
-	clearInterval(interval);
+	stopped = true;
+	goButton.click();
 
 	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
 	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
