@@ -38,12 +38,17 @@ const run = (next) => {
 };
 
 const drawScreen = (type) => {
+	let times = [workTime, shortBreakTime, longBreakTime];
+	let colors = [workColor, shortBreakColor, longBreakColor];
+	
+	timeType = type;
+	minutes = times[type - 1];
+	seconds = 59;
+	clearInterval(interval);
+
 	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
 	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
-	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";
-
-	let colors = [workColor, shortBreakColor, longBreakColor];
-	let times = [workTime, shortBreakTime, longBreakTime];
+	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";	
 
 	document.querySelector(":root").style.setProperty("--theme-color", colors[type - 1]);
 	timerContainer.innerHTML = `${format(times[type - 1])}:00`;
@@ -51,23 +56,14 @@ const drawScreen = (type) => {
 
 workButton.addEventListener("click", (e) => {
 	drawScreen(1);
-	timeType = 1;
-	minutes = workTime - 1;
-	seconds = 59;
 });
 
 shortBreakButton.addEventListener("click", (e) => {
 	drawScreen(2);
-	timeType = 2;
-	minutes = shortBreakTime - 1;
-	seconds = 59;
 });
 
 longBreakButton.addEventListener("click", (e) => {
 	drawScreen(3);
-	timeType = 3;
-	minutes = longBreakTime - 1;
-	seconds = 59;
 });
 
 goButton.addEventListener("click", (e) => {
