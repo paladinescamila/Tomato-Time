@@ -12,55 +12,75 @@ const taskTemplate = (task) => {
 	return `
 		<li id="${task.id}">
 			<div>
-				<input id="c${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
-				<input id="t${task.id}"type="text" value="${task.description}">
+				<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
+				<input id="description-${task.id}"type="text" value="${task.description}">
 			</div>
 			<div>
-				<img id="r${task.id}" src="img/rename.png">
-				<img id="d${task.id}" src="img/delete.png">
+				<img id="rename-${task.id}" src="img/rename.png">
+				<img id="delete-${task.id}" src="img/delete.png">
 			</div>
 		</li>
 	`;
 };
 
-const setTaskSettings = (task) => {
-	// Set a task to work on it
-	document.getElementById(task.id).addEventListener("click", (e) => {
-		currentTask.innerHTML = task.description;
-	});
+const paintTasks = () => {
+	let tasksHTML = "",
+		tasksLength = tasks.length;
 
-	// Check or uncheck a task
-	let checkbox = document.getElementById(`c${task.id}`);
-	checkbox.addEventListener("change", (e) => {
-		task.done = checkbox.checked;
-		console.log(checkbox.checked);
-	});
+	for (let i = 0; i < tasksLength; i++) {
+		if (!tasks[i].deleted) tasksHTML += taskTemplate(tasks[i]);
+	}
 
-	// Save the new name of the task
-	document.getElementById(`t${task.id}`).addEventListener("keyup", (e) => {
-		if (e.keyCode === 13) {
-			event.preventDefault();
-			console.log("CAMBIÓ EL NOMBRE DE LA TAREA");
-		}
-	});
-	// Rename a task
-	document.getElementById(`r${task.id}`).addEventListener("click", (e) => {
-		let element = document.getElementById(`t${task.id}`);
-		element.style.pointerEvents = "auto";
-		element.style.backgroundColor = "#eee";
-	});
+	tasksContainer.innerHTML = tasksHTML;
+	setTaskSettings();
+};
 
-	// Delete a task
-	document.getElementById(`d${task.id}`).addEventListener("click", (e) => {
-		// TODO: Falta hacer que también quite el nombre de la tarea actual si está seleccionada por una que le siga, porque en el contador se va a seguir mostrando esa tarea.
-		document.getElementById(task.id).style.display = "none";
-		task.deleted = true;
-		console.log(task);
-	});
+const setTaskSettings = () => {
+	let tasksLength = tasks.length;
+
+	for (let i = 0; i < tasksLength; i++) {
+		// Set a task to work on it
+		document.getElementById(tasks[i].id).addEventListener("click", (e) => {
+			currentTask.innerHTML = tasks[i].description;
+		});
+
+		// Check or uncheck a task
+		let checkbox = document.getElementById(`done-${tasks[i].id}`);
+		checkbox.addEventListener("change", (e) => {
+			tasks[i].done = checkbox.checked;
+		});
+
+		// Rename a task
+		document.getElementById(`rename-${tasks[i].id}`).addEventListener("click", (e) => {
+			let element = document.getElementById(`description-${tasks[i].id}`);
+			element.focus();
+		});
+
+		// Save the new name of the task
+		document.getElementById(`description-${tasks[i].id}`).addEventListener("keyup", (e) => {
+			if (e.keyCode === 13) {
+				event.preventDefault();
+				let element = document.getElementById(`description-${tasks[i].id}`);
+				tasks[i].description = element.value;
+				document.getElementById(`description-${tasks[i].id}`).blur();
+				paintTasks();
+			}
+		});
+
+		// Delete a task
+		document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
+			// TODO: Falta hacer que también quite el nombre de la tarea actual si está seleccionada por una que le siga, porque en el contador se va a seguir mostrando esa tarea.
+			document.getElementById(tasks[i].id).style.display = "none";
+			tasks[i].deleted = true;
+			if (tasks[i].description === currentTask.innerHTML){
+				currentTask.innerHTML = "Time to focus!";
+			}
+		});
+	}
 };
 
 addTaskButton.addEventListener("click", () => {
-	if (tasks.length <= 50){
+	if (tasks.length <= 50) {
 		addTaskButton.style.display = "none";
 		newContainer.style.display = "grid";
 		newTaskValue.focus();
@@ -76,7 +96,6 @@ cancelTaskButton.addEventListener("click", () => {
 });
 
 saveTaskButton.addEventListener("click", () => {
-
 	let task = {
 		id: new Date().getTime(),
 		description: newTaskValue.value.slice(0, 50),
@@ -86,7 +105,7 @@ saveTaskButton.addEventListener("click", () => {
 
 	tasks.push(task);
 	tasksContainer.innerHTML += taskTemplate(task);
-	setTaskSettings(task);
+	setTaskSettings();
 
 	addTaskButton.style.display = "block";
 	newContainer.style.display = "none";
