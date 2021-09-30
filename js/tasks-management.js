@@ -72,13 +72,10 @@ const setTaskSettings = () => {
 };
 
 addTaskButton.addEventListener("click", () => {
-	if (tasks.length <= 50) {
-		addTaskButton.style.display = "none";
-		newContainer.style.display = "grid";
-		newTaskValue.focus();
-		// saveTaskButton.style.opacity = 0.5;
-		// ! FALTA HACER QUE NO LE PERMITA PRESIONAR EL BOTÓN
-	}
+	addTaskButton.style.display = "none";
+	newContainer.style.display = "grid";
+	newTaskValue.focus();
+	saveTaskButton.style.opacity = 0.7;
 });
 
 cancelTaskButton.addEventListener("click", () => {
@@ -102,12 +99,14 @@ saveTaskButton.addEventListener("click", () => {
 	addTaskButton.style.display = "block";
 	newContainer.style.display = "none";
 	newTaskValue.value = "";
-	// ! LOS EVENTOS DE UNA TAREA NO FUNCIONAN A MENOS DE QUE LA HAYA CREADO DE ÚLTIMA :'(
 });
 
 newTaskValue.addEventListener("keyup", (e) => {
 	if (e.keyCode === 13) {
 		event.preventDefault();
-		saveTaskButton.click();
+		if (newTaskValue.value !== "") saveTaskButton.click();
 	}
+
+	if (newTaskValue.value !== "") saveTaskButton.style.opacity = 1;
+	else saveTaskButton.style.opacity = 0.7;
 });

@@ -9,7 +9,7 @@ header {
 	justify-content: space-around;
 }
 
-header > p:first-of-type {
+header > p {
 	cursor: context-menu;
 }
 

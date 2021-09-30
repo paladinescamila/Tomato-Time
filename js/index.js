@@ -5,16 +5,17 @@ const longBreakButton = document.getElementById("long-break-button");
 const goButton = document.getElementById("go-button");
 
 const format = (n) => (n < 10 ? "0" + n : n);
-
-let timeType = 1,
-	numberOfPomodoros = 1;
 timerContainer.innerHTML = `${format(workTime)}:00`;
 
-const run = (time, next) => {
-	let minutes = time - 1,
-		seconds = 59;
+let timeType = 1,
+	numberOfPomodoros = 1,
+	stopped = false,
+	interval,
+	minutes = workTime - 1,
+	seconds = 59;
 
-	let interval = setInterval(() => {
+const run = (next) => {
+	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
 		seconds--;
 
@@ -64,38 +65,60 @@ longBreakButton.addEventListener("click", (e) => {
 });
 
 goButton.addEventListener("click", (e) => {
-	switch (timeType) {
-		// Work Time
-		case 1:
-			if (autoStartBreaks) {
-				run(workTime, 2);
-			} else {
-				run(workTime, 0);
-			}
-			break;
-
-		// Short Break Time
-		case 2:
-			if (autoStartWork) {
-				if (numberOfPomodoros < longBreakInterval) {
-					numberOfPomodoros++;
-					run(shortBreakTime, 1);
-				} else {
-					numberOfPomodoros = 1;
-					run(shortBreakTime, 3);
+	if (stopped) {
+		goButton.innerHTML = "Go";
+		clearInterval(interval);
+	} else {
+		goButton.innerHTML = "Stop";
+		switch (timeType) {
+			// Work Time
+			case 1:
+				if (minutes === -1){
+					minutes = workTime - 1;
+					seconds = 59;
 				}
-			} else {
-				run(shortBreakTime, 0);
-			}
-			break;
 
-		// Long Break Time
-		case 3:
-			if (autoStartWork) {
-				run(longBreakTime, 1);
-			} else {
-				run(longBreakTime, 0);
-			}
-			break;
+				if (autoStartBreaks) {
+					run(2);
+				} else {
+					run(0);
+				}
+				break;
+
+			// Short Break Time
+			case 2:
+				if (minutes === -1){
+					minutes = shortBreakTime - 1;
+					seconds = 59;
+				}
+
+				if (autoStartWork) {
+					if (numberOfPomodoros < longBreakInterval) {
+						numberOfPomodoros++;
+						run(1);
+					} else {
+						numberOfPomodoros = 1;
+						run(3);
+					}
+				} else {
+					run(0);
+				}
+				break;
+
+			// Long Break Time
+			case 3:
+				if (minutes === -1){
+					minutes = longBreakTime - 1;
+					seconds = 59;
+				}
+
+				if (autoStartWork) {
+					run(1);
+				} else {
+					run(0);
+				}
+				break;
+		}
 	}
+	stopped = !stopped;
 });

@@ -17,7 +17,6 @@
 }
 
 .tasks-container {
-	/* padding: 1em 5em; */
 	width: 500px;
 }
 
@@ -46,6 +45,7 @@
 .tasks-container li input[type="text"] {
 	border: none;
 	width: 90%;
+	height: 100%;
 	pointer-events: none;
 }
 
@@ -53,13 +53,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	/* background-color: violet; */
 	width: 15%;
 }
 
 .tasks-container li img {
 	width: 17px;
-	/* background-color: turquoise; */
 	opacity: 0;
 }
 
