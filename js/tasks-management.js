@@ -16,6 +16,7 @@ const taskTemplate = (task) => {
 				<input id="description-${task.id}"type="text" value="${task.description}">
 			</div>
 			<div>
+				<img id="clock-${task.id}" src="img/clock.png">
 				<img id="rename-${task.id}" src="img/rename.png">
 				<img id="delete-${task.id}" src="img/delete.png">
 			</div>
@@ -23,24 +24,12 @@ const taskTemplate = (task) => {
 	`;
 };
 
-const paintTasks = () => {
-	let tasksHTML = "",
-		tasksLength = tasks.length;
-
-	for (let i = 0; i < tasksLength; i++) {
-		if (!tasks[i].deleted) tasksHTML += taskTemplate(tasks[i]);
-	}
-
-	tasksContainer.innerHTML = tasksHTML;
-	setTaskSettings();
-};
-
 const setTaskSettings = () => {
 	let tasksLength = tasks.length;
 
 	for (let i = 0; i < tasksLength; i++) {
 		// Set a task to work on it
-		document.getElementById(tasks[i].id).addEventListener("click", (e) => {
+		document.getElementById(`clock-${tasks[i].id}`).addEventListener("click", (e) => {
 			currentTask.innerHTML = tasks[i].description;
 		});
 
@@ -60,19 +49,22 @@ const setTaskSettings = () => {
 		document.getElementById(`description-${tasks[i].id}`).addEventListener("keyup", (e) => {
 			if (e.keyCode === 13) {
 				event.preventDefault();
-				let element = document.getElementById(`description-${tasks[i].id}`);
+
+				let element = document.getElementById(`description-${tasks[i].id}`),
+					oldInput = `<input id="description-${tasks[i].id}" type="text" value="${tasks[i].description}">`,
+					newInput = `<input id="description-${tasks[i].id}" type="text" value="${element.value}">`;
+
 				tasks[i].description = element.value;
+				tasksContainer.innerHTML = tasksContainer.innerHTML.replace(oldInput, newInput);
 				document.getElementById(`description-${tasks[i].id}`).blur();
-				paintTasks();
 			}
 		});
 
 		// Delete a task
 		document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
-			// TODO: Falta hacer que también quite el nombre de la tarea actual si está seleccionada por una que le siga, porque en el contador se va a seguir mostrando esa tarea.
 			document.getElementById(tasks[i].id).style.display = "none";
 			tasks[i].deleted = true;
-			if (tasks[i].description === currentTask.innerHTML){
+			if (tasks[i].description === currentTask.innerHTML) {
 				currentTask.innerHTML = "Time to focus!";
 			}
 		});

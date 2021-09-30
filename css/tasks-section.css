@@ -34,10 +34,9 @@
 }
 
 .tasks-container li > div:first-of-type {
-	width: 90%;
+	width: 85%;
 	display: flex;
 	align-items: center;
-	/* background-color: turquoise; */
 }
 
 .tasks-container li input[type="checkbox"] {
@@ -55,7 +54,7 @@
 	align-items: center;
 	justify-content: space-between;
 	/* background-color: violet; */
-	width: 10%;
+	width: 15%;
 }
 
 .tasks-container li img {
@@ -65,7 +64,11 @@
 }
 
 .tasks-container li:hover img {
-	opacity: 0.9;
+	opacity: 0.7;
+}
+
+.tasks-container li img:hover{
+	opacity: 1;
 }
 
 .add-task {
