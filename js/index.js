@@ -42,7 +42,7 @@ const drawScreen = (type) => {
 	let colors = [workColor, shortBreakColor, longBreakColor];
 	
 	timeType = type;
-	minutes = times[type - 1];
+	minutes = times[type - 1] - 1;
 	seconds = 59;
 	stopped = true;
 	
