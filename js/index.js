@@ -45,14 +45,14 @@ const drawScreen = (type) => {
 	minutes = times[type - 1];
 	seconds = 59;
 	stopped = true;
-	goButton.click();
-
+	
 	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
 	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
 	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";	
-
+	
 	document.querySelector(":root").style.setProperty("--theme-color", colors[type - 1]);
 	timerContainer.innerHTML = `${format(times[type - 1])}:00`;
+	goButton.click();
 };
 
 workButton.addEventListener("click", (e) => {
