@@ -8,67 +8,61 @@ const newTaskValue = document.getElementById("new-task");
 
 let tasks = [];
 
-const taskTemplate = (task) => {
-	return `
-		<li id="${task.id}">
-			<div>
-				<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
-				<input id="description-${task.id}"type="text" value="${task.description}">
-			</div>
-			<div>
-				<img id="clock-${task.id}" src="img/clock.png">
-				<img id="rename-${task.id}" src="img/rename.png">
-				<img id="delete-${task.id}" src="img/delete.png">
-			</div>
-		</li>
+const taskElement = (task) => {
+	let element = document.createElement("li");
+	element.id = task.id;
+	element.innerHTML = `
+		<div>
+			<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
+			<input id="description-${task.id}"type="text" value="${task.description}">
+		</div>
+		<div>
+			<img id="clock-${task.id}" src="img/clock.png">
+			<img id="rename-${task.id}" src="img/rename.png">
+			<img id="delete-${task.id}" src="img/delete.png">
+		</div>
 	`;
+
+	return element;
 };
 
-const setTaskSettings = () => {
-	let tasksLength = tasks.length;
+const setTaskSettings = (i) => {
+	// Set a task to work on it
+	document.getElementById(`clock-${tasks[i].id}`).addEventListener("click", (e) => {
+		currentTask.innerHTML = tasks[i].description;
+	});
 
-	for (let i = 0; i < tasksLength; i++) {
-		// Set a task to work on it
-		document.getElementById(`clock-${tasks[i].id}`).addEventListener("click", (e) => {
-			currentTask.innerHTML = tasks[i].description;
-		});
+	// Check or uncheck a task
+	let checkbox = document.getElementById(`done-${tasks[i].id}`);
+	checkbox.addEventListener("change", (e) => {
+		tasks[i].done = checkbox.checked;
+	});
 
-		// Check or uncheck a task
-		let checkbox = document.getElementById(`done-${tasks[i].id}`);
-		checkbox.addEventListener("change", (e) => {
-			tasks[i].done = checkbox.checked;
-		});
+	// Rename a task
+	document.getElementById(`rename-${tasks[i].id}`).addEventListener("click", (e) => {
+		let element = document.getElementById(`description-${tasks[i].id}`);
+		element.focus();
+	});
 
-		// Rename a task
-		document.getElementById(`rename-${tasks[i].id}`).addEventListener("click", (e) => {
+	// Save the new name of the task
+	document.getElementById(`description-${tasks[i].id}`).addEventListener("keyup", (e) => {
+		if (e.keyCode === 13) {
+			event.preventDefault();
 			let element = document.getElementById(`description-${tasks[i].id}`);
-			element.focus();
-		});
 
-		// Save the new name of the task
-		document.getElementById(`description-${tasks[i].id}`).addEventListener("keyup", (e) => {
-			if (e.keyCode === 13) {
-				event.preventDefault();
+			if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = element.value;
 
-				let element = document.getElementById(`description-${tasks[i].id}`),
-					oldInput = `<input id="description-${tasks[i].id}" type="text" value="${tasks[i].description}">`,
-					newInput = `<input id="description-${tasks[i].id}" type="text" value="${element.value}">`;
+			tasks[i].description = element.value;
+			document.getElementById(`description-${tasks[i].id}`).blur();
+		}
+	});
 
-				if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = element.value;
-
-				tasks[i].description = element.value;
-				tasksContainer.innerHTML = tasksContainer.innerHTML.replace(oldInput, newInput);
-				document.getElementById(`description-${tasks[i].id}`).blur();
-			}
-		});
-
-		// Delete a task
-		document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
-			document.getElementById(tasks[i].id).style.display = "none";
-			tasks[i].deleted = true;
-			if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = "Time to focus!";
-		});
-	}
+	// Delete a task
+	document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
+		if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = "Time to focus!";
+		tasksContainer.removeChild(document.getElementById(tasks[i].id));
+		tasks = tasks.filter((t) => t.id !== tasks[i].id);
+	});
 };
 
 addTaskButton.addEventListener("click", () => {
@@ -76,6 +70,7 @@ addTaskButton.addEventListener("click", () => {
 	newContainer.style.display = "grid";
 	newTaskValue.focus();
 	saveTaskButton.style.opacity = 0.7;
+	saveTaskButton.disabled = true;
 });
 
 cancelTaskButton.addEventListener("click", () => {
@@ -89,12 +84,11 @@ saveTaskButton.addEventListener("click", () => {
 		id: new Date().getTime(),
 		description: newTaskValue.value.slice(0, 50),
 		done: false,
-		deleted: false,
 	};
 
 	tasks.push(task);
-	tasksContainer.innerHTML += taskTemplate(task);
-	setTaskSettings();
+	tasksContainer.appendChild(taskElement(task));
+	setTaskSettings(tasks.length - 1);
 
 	addTaskButton.style.display = "block";
 	newContainer.style.display = "none";
@@ -107,6 +101,11 @@ newTaskValue.addEventListener("keyup", (e) => {
 		if (newTaskValue.value !== "") saveTaskButton.click();
 	}
 
-	if (newTaskValue.value !== "") saveTaskButton.style.opacity = 1;
-	else saveTaskButton.style.opacity = 0.7;
+	if (newTaskValue.value !== "") {
+		saveTaskButton.style.opacity = 1;
+		saveTaskButton.disabled = false;
+	} else {
+		saveTaskButton.style.opacity = 0.7;
+		saveTaskButton.disabled = true;
+	}
 });
