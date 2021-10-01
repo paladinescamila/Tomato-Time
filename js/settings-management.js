@@ -33,16 +33,8 @@ saveSettingsButton.addEventListener("click", (e) => {
 	autoStartBreaks = autoBreakValue.checked;
 
 	displaySettings.style.display = "none";
-
-	switch (timeType) {
-		case 1:
-			timerContainer.innerHTML = `${format(workTime)}:00`;
-			break;
-		case 2:
-			timerContainer.innerHTML = `${format(shortBreakTime)}:00`;
-			break;
-		case 3:
-			timerContainer.innerHTML = `${format(longBreakTime)}:00`;
-			break;
-	}
+	let times = [workTime, shortBreakTime, longBreakTime]
+	timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
+	minutes = times[timeType - 1] - 1;
+	seconds = 59;
 });

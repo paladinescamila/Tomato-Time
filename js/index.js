@@ -15,6 +15,8 @@ let timeType = 1,
 	seconds = 59;
 
 const run = (next) => {
+	let time = minutes + 1;
+
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
 		seconds--;
