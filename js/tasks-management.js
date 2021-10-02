@@ -29,6 +29,9 @@ const taskElement = (task) => {
 const setTaskSettings = (i) => {
 	// Set a task to work on it
 	document.getElementById(`clock-${tasks[i].id}`).addEventListener("click", (e) => {
+		let tasksLength = tasks.length;
+		for (let j = 0; j < tasksLength; j++) tasks[j].current = false;
+		tasks[i].current = true;
 		currentTask.innerHTML = tasks[i].description;
 	});
 
@@ -50,7 +53,7 @@ const setTaskSettings = (i) => {
 			event.preventDefault();
 			let element = document.getElementById(`description-${tasks[i].id}`);
 
-			if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = element.value;
+			if (tasks[i].current) currentTask.innerHTML = element.value;
 
 			tasks[i].description = element.value;
 			document.getElementById(`description-${tasks[i].id}`).blur();
@@ -59,9 +62,9 @@ const setTaskSettings = (i) => {
 
 	// Delete a task
 	document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
-		if (tasks[i].description === currentTask.innerHTML) currentTask.innerHTML = "Time to focus!";
-		tasksContainer.removeChild(document.getElementById(tasks[i].id));
-		tasks = tasks.filter((t) => t.id !== tasks[i].id);
+		if (tasks[i].current) currentTask.innerHTML = "Time to focus!";
+		document.getElementById(tasks[i].id).style.display = "none";
+		tasks[i].deleted = true;
 	});
 };
 
@@ -84,6 +87,8 @@ saveTaskButton.addEventListener("click", () => {
 		id: new Date().getTime(),
 		description: newTaskValue.value.slice(0, 50),
 		done: false,
+		current: false,
+		deleted: false,
 	};
 
 	tasks.push(task);
