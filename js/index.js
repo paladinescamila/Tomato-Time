@@ -7,7 +7,8 @@ const goButton = document.getElementById("go-button");
 const format = (n) => (n < 10 ? "0" + n : n);
 timerContainer.innerHTML = `${format(workTime)}:00`;
 
-let timeType = 1,
+let timeNames = ["Work", "Short Break", "Long Break"],
+	timeType = 1,
 	numberOfPomodoros = 1,
 	stopped = false,
 	interval,
@@ -19,6 +20,7 @@ const run = (next) => {
 
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
+		document.title = `${timeNames[timeType - 1]} (${timerContainer.innerHTML})`;
 		seconds--;
 
 		if (seconds === -1) {
@@ -42,16 +44,16 @@ const run = (next) => {
 const drawScreen = (type) => {
 	let times = [workTime, shortBreakTime, longBreakTime];
 	let colors = [workColor, shortBreakColor, longBreakColor];
-	
+
 	timeType = type;
 	minutes = times[type - 1] - 1;
 	seconds = 59;
 	stopped = true;
-	
+
 	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
 	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
-	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";	
-	
+	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";
+
 	document.querySelector(":root").style.setProperty("--theme-color", colors[type - 1]);
 	timerContainer.innerHTML = `${format(times[type - 1])}:00`;
 	goButton.click();
@@ -72,6 +74,7 @@ longBreakButton.addEventListener("click", (e) => {
 goButton.addEventListener("click", (e) => {
 	if (stopped) {
 		goButton.innerHTML = "Go";
+		document.title = "Tomato Time";
 		clearInterval(interval);
 	} else {
 		goButton.innerHTML = "Stop";
