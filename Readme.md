@@ -2,8 +2,6 @@
 
 With this application you can track your concentration time, using the Pomodoro technique, which can be customized to your needs. This app can be found [here](https://tomato-time.netlify.app/).
 
-![photo](img/photo.png)
-
 ## How to use
 
 The following are the options you can do in the app:
