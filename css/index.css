@@ -12,6 +12,16 @@ body {
 	font-family: var(--main-font-family);
 }
 
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo img {
+	width: 30px;
+	margin-right: 0.5em;
+}
+
 .signature {
 	font-family: monospace;
 	color: #000;
@@ -44,8 +54,8 @@ body::-webkit-scrollbar-thumb {
 	background-color: var(--transparent-w-3);
 }
 
-@media (max-width: 1000px){
-	.tasks-container li img{
+@media (max-width: 1000px) {
+	.tasks-container li img {
 		opacity: 0.7;
 	}
 }
@@ -121,7 +131,7 @@ body::-webkit-scrollbar-thumb {
 	}
 }
 
-@media (max-width: 400px){
+@media (max-width: 400px) {
 	.tasks-container li > div:first-of-type {
 		width: 75%;
 	}
