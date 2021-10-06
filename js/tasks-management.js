@@ -1,3 +1,4 @@
+// Elements
 const currentTask = document.getElementById("current-task");
 const tasksContainer = document.getElementById("tasks-container");
 const addTaskButton = document.getElementById("add-task");
@@ -6,8 +7,10 @@ const cancelTaskButton = document.getElementById("cancel-task");
 const saveTaskButton = document.getElementById("save-task");
 const newTaskValue = document.getElementById("new-task");
 
+// Start settings
 let tasks = [];
 
+// Create a task element (li)
 const taskElement = (task) => {
 	let element = document.createElement("li");
 	element.id = task.id;
@@ -26,19 +29,20 @@ const taskElement = (task) => {
 	return element;
 };
 
+// Set event listeners to the task in the index i
 const setTaskSettings = (i) => {
+	// Check or uncheck a task
+	let checkbox = document.getElementById(`done-${tasks[i].id}`);
+	checkbox.addEventListener("change", (e) => {
+		tasks[i].done = checkbox.checked;
+	});
+
 	// Set a task to work on it
 	document.getElementById(`clock-${tasks[i].id}`).addEventListener("click", (e) => {
 		let tasksLength = tasks.length;
 		for (let j = 0; j < tasksLength; j++) tasks[j].current = false;
 		tasks[i].current = true;
 		currentTask.innerHTML = tasks[i].description;
-	});
-
-	// Check or uncheck a task
-	let checkbox = document.getElementById(`done-${tasks[i].id}`);
-	checkbox.addEventListener("change", (e) => {
-		tasks[i].done = checkbox.checked;
 	});
 
 	// Rename a task
@@ -68,6 +72,7 @@ const setTaskSettings = (i) => {
 	});
 };
 
+// Displays the input to add a task
 addTaskButton.addEventListener("click", () => {
 	addTaskButton.style.display = "none";
 	newContainer.style.display = "grid";
@@ -76,12 +81,14 @@ addTaskButton.addEventListener("click", () => {
 	saveTaskButton.disabled = true;
 });
 
+// Close the input to add a task
 cancelTaskButton.addEventListener("click", () => {
 	addTaskButton.style.display = "block";
 	newContainer.style.display = "none";
 	newTaskValue.value = "";
 });
 
+// Save changes of the new task
 saveTaskButton.addEventListener("click", () => {
 	let task = {
 		id: new Date().getTime(),
@@ -100,6 +107,7 @@ saveTaskButton.addEventListener("click", () => {
 	newTaskValue.value = "";
 });
 
+// Save changes of the new task if press ENTER
 newTaskValue.addEventListener("keyup", (e) => {
 	if (e.keyCode === 13) {
 		event.preventDefault();

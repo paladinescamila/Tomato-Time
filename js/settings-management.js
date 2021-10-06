@@ -1,3 +1,4 @@
+// Elements
 const settingsButton = document.getElementById("settings");
 const displaySettings = document.getElementById("display-settings");
 const workValue = document.getElementById("work-value");
@@ -9,6 +10,7 @@ const autoBreakValue = document.getElementById("auto-break-value");
 const cancelSettingsButton = document.getElementById("cancel-settings");
 const saveSettingsButton = document.getElementById("save-settings");
 
+// Open settings window
 settingsButton.addEventListener("click", (e) => {
 	workValue.value = workTime;
 	shortBreakValue.value = shortBreakTime;
@@ -20,11 +22,18 @@ settingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "flex";
 });
 
+// Close settings window
 cancelSettingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "none";
 });
 
+// Save changes and close settings window
 saveSettingsButton.addEventListener("click", (e) => {
+	let oldWorkTime = workTime,
+		oldShortBreakTime = shortBreakTime,
+		oldLongBreakTime = longBreakTime;
+
+	// Update settings
 	workTime = workValue.value <= 1440 ? workValue.value : 25;
 	shortBreakTime = shortBreakValue.value <= 720 ? shortBreakValue.value : 5;
 	longBreakTime = longBreakValue.value <= 720 ? longBreakValue.value : 10;
@@ -32,10 +41,20 @@ saveSettingsButton.addEventListener("click", (e) => {
 	autoStartWork = autoWorkValue.checked;
 	autoStartBreaks = autoBreakValue.checked;
 
+	// Did settings change the current clock?
+	let workChange = timeType === 1 && oldWorkTime !== workTime,
+		shortBreakChange = timeType === 2 && oldShortBreakTime !== shortBreakTime,
+		longBreakChange = timeType === 3 && oldLongBreakTime !== longBreakTime;
+
+	// If settings change, restart the clock
+	if (workChange || shortBreakChange || longBreakChange) {
+		let times = [workTime, shortBreakTime, longBreakTime];
+		timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
+		minutes = times[timeType - 1] - 1;
+		seconds = 59;
+		stopped = true;
+		goButton.click();
+	}
+
 	displaySettings.style.display = "none";
-	let times = [workTime, shortBreakTime, longBreakTime];
-	timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
-	minutes = times[timeType - 1] - 1;
-	seconds = 59;
-	clearInterval(interval);
 });

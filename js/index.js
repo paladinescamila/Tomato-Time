@@ -1,9 +1,11 @@
+// Elements
 const timerContainer = document.getElementById("timer");
 const workButton = document.getElementById("work-button");
 const shortBreakButton = document.getElementById("short-break-button");
 const longBreakButton = document.getElementById("long-break-button");
 const goButton = document.getElementById("go-button");
 
+// Start settings
 const format = (n) => (n < 10 ? "0" + n : n);
 timerContainer.innerHTML = `${format(workTime)}:00`;
 
@@ -15,6 +17,7 @@ let timeNames = ["Work", "Short Break", "Long Break"],
 	minutes = workTime - 1,
 	seconds = 59;
 
+// Countdown
 const run = (next) => {
 	let time = minutes + 1;
 
@@ -41,6 +44,7 @@ const run = (next) => {
 	}, 1000);
 };
 
+// Set values and styles according to the time type
 const drawScreen = (type) => {
 	let times = [workTime, shortBreakTime, longBreakTime];
 	let colors = [workColor, shortBreakColor, longBreakColor];
@@ -59,18 +63,12 @@ const drawScreen = (type) => {
 	goButton.click();
 };
 
-workButton.addEventListener("click", (e) => {
-	drawScreen(1);
-});
+// Change time type
+workButton.addEventListener("click", (e) => drawScreen(1));
+shortBreakButton.addEventListener("click", (e) => drawScreen(2));
+longBreakButton.addEventListener("click", (e) => drawScreen(3));
 
-shortBreakButton.addEventListener("click", (e) => {
-	drawScreen(2);
-});
-
-longBreakButton.addEventListener("click", (e) => {
-	drawScreen(3);
-});
-
+// Start or stop the countdown
 goButton.addEventListener("click", (e) => {
 	if (stopped) {
 		goButton.innerHTML = "Go";
