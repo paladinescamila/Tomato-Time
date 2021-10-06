@@ -34,10 +34,10 @@ saveSettingsButton.addEventListener("click", (e) => {
 		oldLongBreakTime = longBreakTime;
 
 	// Update settings
-	workTime = workValue.value <= 1440 ? workValue.value : 25;
-	shortBreakTime = shortBreakValue.value <= 720 ? shortBreakValue.value : 5;
-	longBreakTime = longBreakValue.value <= 720 ? longBreakValue.value : 10;
-	longBreakInterval = intervalValue.value <= 100 ? intervalValue.value : 4;
+	workTime = workValue.value <= 99 ? Number(workValue.value) : 25;
+	shortBreakTime = shortBreakValue.value <= 99 ? Number(shortBreakValue.value) : 5;
+	longBreakTime = longBreakValue.value <= 99 ? Number(longBreakValue.value) : 10;
+	longBreakInterval = intervalValue.value <= 99 ? Number(intervalValue.value) : 4;
 	autoStartWork = autoWorkValue.checked;
 	autoStartBreaks = autoBreakValue.checked;
 
