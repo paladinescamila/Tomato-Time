@@ -47,8 +47,10 @@ const setTaskSettings = (i) => {
 
 	// Rename a task
 	document.getElementById(`rename-${tasks[i].id}`).addEventListener("click", (e) => {
-		let element = document.getElementById(`description-${tasks[i].id}`);
+		let element = document.getElementById(`description-${tasks[i].id}`),
+			length = element.value.length;
 		element.focus();
+		element.setSelectionRange(length, length);
 	});
 
 	// Save the new name of the task
@@ -56,9 +58,7 @@ const setTaskSettings = (i) => {
 		if (e.keyCode === 13) {
 			event.preventDefault();
 			let element = document.getElementById(`description-${tasks[i].id}`);
-
 			if (tasks[i].current) currentTask.innerHTML = element.value;
-
 			tasks[i].description = element.value;
 			document.getElementById(`description-${tasks[i].id}`).blur();
 		}

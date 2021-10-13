@@ -108,18 +108,40 @@ body::-webkit-scrollbar-thumb {
 	}
 
 	.settings-container {
-		height: 600px;
 		grid-gap: 0.5em;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 1.5fr repeat(6, 0.5fr) 1.5fr;
 		grid-template-areas:
-			"title title title"
-			"work work work"
-			"short short short"
-			"long long long"
-			"aswork aswork aswork"
-			"asbreak asbreak asbreak"
-			"interval interval interval"
-			"none cancel save";
+			"title title"
+			"work work"
+			"short short"
+			"long long"
+			"aswork aswork"
+			"asbreak asbreak"
+			"interval interval"
+			"save save";
+	}
+
+	.work-container,
+	.short-container,
+	.long-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		align-items: center;
+	}
+
+	.auto-inputs {
+		min-height: 40px;
+	}
+
+	.save-settings {
+		margin-top: 1em;
+	}
+
+	.work-container .number-input,
+	.short-container .number-input,
+	.long-container .number-input {
+		margin: 0;
 	}
 
 	.tasks-container li > div:first-of-type {
@@ -132,6 +154,15 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 400px) {
+	.work-container,
+	.short-container,
+	.long-container,
+	.as-work-container,
+	.as-break-container,
+	.interval-container {
+		font-size: 0.8em;
+	}
+
 	.tasks-container li > div:first-of-type {
 		width: 75%;
 	}

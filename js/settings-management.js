@@ -1,6 +1,7 @@
 // Elements
 const settingsButton = document.getElementById("settings");
 const displaySettings = document.getElementById("display-settings");
+const settingsBox = document.getElementById("settings-box");
 const workValue = document.getElementById("work-value");
 const shortBreakValue = document.getElementById("short-break-value");
 const longBreakValue = document.getElementById("long-break-value");
@@ -22,9 +23,14 @@ settingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "flex";
 });
 
-// Close settings window
+// Close settings window (with 'x' button)
 cancelSettingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "none";
+});
+
+// Close settings window (clicking outside the box)
+displaySettings.addEventListener("click", function (e) {
+	if (!settingsBox.contains(e.target)) cancelSettingsButton.click();
 });
 
 // Save changes and close settings window

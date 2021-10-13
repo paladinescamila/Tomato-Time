@@ -37,7 +37,7 @@
 			<p>Made with ❤ by <a target="_blanck" href="https://github.com/paladinescamila">Camila Paladines</a></p>
 		</footer>
 		<div class="dark-bg" id="display-settings">
-			<div class="settings-container">
+			<div class="settings-container" id="settings-box">
 				<p>Settings</p>
 				<div class="work-container">
 					<p>Work</p>
@@ -51,6 +51,10 @@
 					<p>Long Break</p>
 					<input class="number-input" type="number" id="long-break-value" />
 				</div>
+				<div class="auto-inputs interval-container">
+					<p>Long Break interval</p>
+					<input class="number-input" type="number" id="interval-value" />
+				</div>
 				<div class="auto-inputs as-work-container">
 					<label>Auto start pomodoros?</label>
 					<input type="checkbox" id="auto-work-value" />
@@ -58,10 +62,6 @@
 				<div class="auto-inputs as-break-container">
 					<label>Auto start breaks?</label>
 					<input type="checkbox" id="auto-break-value" />
-				</div>
-				<div class="auto-inputs interval-container">
-					<p>Long Break interval</p>
-					<input class="number-input" type="number" id="interval-value" />
 				</div>
 				<button id="save-settings" class="save-settings">Save</button>
 				<button id="cancel-settings" class="x-cancel"><img src="img/x.svg" /></button>
