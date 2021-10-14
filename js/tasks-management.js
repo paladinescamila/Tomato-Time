@@ -17,6 +17,7 @@ const taskElement = (task) => {
 	element.innerHTML = `
 		<div>
 			<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
+			<label for="done-${task.id}">
 			<input id="description-${task.id}"type="text" value="${task.description}">
 		</div>
 		<div>
@@ -31,14 +32,20 @@ const taskElement = (task) => {
 
 // Set event listeners to the task in the index i
 const setTaskSettings = (i) => {
+	let taskContainer = document.getElementById(tasks[i].id),
+		taskCheckbox = document.getElementById(`done-${tasks[i].id}`),
+		taskDescription = document.getElementById(`description-${tasks[i].id}`),
+		taskClock = document.getElementById(`clock-${tasks[i].id}`),
+		taskRename = document.getElementById(`rename-${tasks[i].id}`),
+		taskDelete = document.getElementById(`delete-${tasks[i].id}`);
+
 	// Check or uncheck a task
-	let checkbox = document.getElementById(`done-${tasks[i].id}`);
-	checkbox.addEventListener("change", (e) => {
-		tasks[i].done = checkbox.checked;
+	taskCheckbox.addEventListener("change", (e) => {
+		tasks[i].done = taskCheckbox.checked;
 	});
 
 	// Set a task to work on it
-	document.getElementById(`clock-${tasks[i].id}`).addEventListener("click", (e) => {
+	taskClock.addEventListener("click", (e) => {
 		let tasksLength = tasks.length;
 		for (let j = 0; j < tasksLength; j++) tasks[j].current = false;
 		tasks[i].current = true;
@@ -46,28 +53,22 @@ const setTaskSettings = (i) => {
 	});
 
 	// Rename a task
-	document.getElementById(`rename-${tasks[i].id}`).addEventListener("click", (e) => {
-		let element = document.getElementById(`description-${tasks[i].id}`),
-			length = element.value.length;
-		element.focus();
-		element.setSelectionRange(length, length);
+	taskRename.addEventListener("click", (e) => {
+		let length = taskDescription.value.length;
+		taskDescription.focus();
+		taskDescription.setSelectionRange(length, length);
 	});
 
 	// Save the new name of the task
-	document.getElementById(`description-${tasks[i].id}`).addEventListener("keyup", (e) => {
-		if (e.keyCode === 13) {
-			event.preventDefault();
-			let element = document.getElementById(`description-${tasks[i].id}`);
-			if (tasks[i].current) currentTask.innerHTML = element.value;
-			tasks[i].description = element.value;
-			document.getElementById(`description-${tasks[i].id}`).blur();
-		}
+	taskDescription.addEventListener("keyup", (e) => {
+		if (tasks[i].current) currentTask.innerHTML = taskDescription.value;
+		tasks[i].description = taskDescription.value;
 	});
 
 	// Delete a task
-	document.getElementById(`delete-${tasks[i].id}`).addEventListener("click", (e) => {
+	taskDelete.addEventListener("click", (e) => {
 		if (tasks[i].current) currentTask.innerHTML = "Time to focus!";
-		document.getElementById(tasks[i].id).style.display = "none";
+		taskContainer.style.display = "none";
 		tasks[i].deleted = true;
 	});
 };

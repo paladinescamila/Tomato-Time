@@ -57,30 +57,50 @@
 
 .as-work-container {
 	grid-area: aswork;
-	position: relative;
-	/* background-color: brown; */
 }
 
 .as-break-container {
 	grid-area: asbreak;
+}
+
+.as-work-container,
+.as-break-container {
 	position: relative;
-	/* background-color: yellow; */
 }
 
 .as-work-container input,
 .as-break-container input {
-	display: none;
+	visibility: hidden;
 }
 
-.as-work-container label:after,
-.as-break-container label:after {
-	content: "";
+.as-work-container input:checked + label,
+.as-break-container input:checked + label {
+	background-color: var(--theme-color);
+}
+
+.as-work-container label,
+.as-break-container label {
 	width: 20px;
 	height: 20px;
 	border: 2px solid var(--theme-color);
 	position: absolute;
 	right: 0;
 	cursor: pointer;
+}
+
+.as-work-container label::after,
+.as-break-container label::after {
+	content: "";
+	width: 10px;
+	height: 5px;
+	border-color: #fff;
+	border-style: none none solid solid;
+	position: absolute;
+	top: 2.5px;
+	left: 2px;
+	-ms-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
 .interval-container {
