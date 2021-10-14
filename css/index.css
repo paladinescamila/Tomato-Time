@@ -8,8 +8,11 @@
 @import url("tasks-section.css");
 
 body {
-	background-color: #eee;
+	background-color: var(--theme-color);
 	font-family: var(--main-font-family);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .logo {
@@ -25,11 +28,16 @@ body {
 .signature {
 	font-family: monospace;
 	color: #000;
-	opacity: 0.5;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 3em 0;
+	background-color: #eee;
+	width: 100%;
+}
+
+.signature p {
+	opacity: 0.5;
 }
 
 .signature a {
@@ -57,6 +65,12 @@ body::-webkit-scrollbar-thumb {
 @media (max-width: 1000px) {
 	.tasks-container li img {
 		opacity: 0.7;
+	}
+}
+
+@media (max-width: 900px) {
+	header {
+		width: 90%;
 	}
 }
 

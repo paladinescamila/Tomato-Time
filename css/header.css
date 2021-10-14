@@ -1,12 +1,15 @@
 header {
-	height: 10vh;
+	height: 13vh;
+	width: 800px;
 	color: var(--white);
 	font-weight: 700;
 	font-size: 1.5em;
 	background-color: var(--theme-color);
 	display: flex;
 	align-items: flex-end;
-	justify-content: space-around;
+	justify-content: space-between;
+	padding-bottom: 1em;
+	border-bottom: 1px solid var(--transparent-w-2);
 }
 
 header > p {
@@ -17,4 +20,8 @@ header button {
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+}
+
+header button > img {
+	width: 20px;
 }

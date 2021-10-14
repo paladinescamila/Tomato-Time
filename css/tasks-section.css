@@ -5,6 +5,7 @@
 	flex-direction: column;
 	align-items: center;
 	padding-bottom: 10em;
+	background-color: #eee;
 }
 
 .title {
@@ -43,6 +44,11 @@
 
 .tasks-container li input[type="checkbox"]:checked + label {
 	background-color: var(--theme-color);
+}
+
+.tasks-container li input[type="checkbox"]:checked ~ input {
+	text-decoration: line-through;
+	opacity: 0.5;
 }
 
 .tasks-container li label {
