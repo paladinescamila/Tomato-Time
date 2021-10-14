@@ -17,8 +17,8 @@ const taskElement = (task) => {
 	element.innerHTML = `
 		<div>
 			<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
-			<label for="done-${task.id}">
-			<input id="description-${task.id}"type="text" value="${task.description}">
+			<label for="done-${task.id}"></label>
+			<input id="description-${task.id}" type="text" value="${task.description}">
 		</div>
 		<div>
 			<img id="clock-${task.id}" src="img/clock.png">
