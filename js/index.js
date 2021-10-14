@@ -7,14 +7,14 @@ const goButton = document.getElementById("go-button");
 
 // Start settings
 const format = (n) => (n < 10 ? "0" + n : n);
-timerContainer.innerHTML = `${format(localStorage.getItem("workTime"))}:00`;
+timerContainer.innerHTML = `${format(workTime)}:00`;
 
 let timeNames = ["Work", "Short Break", "Long Break"],
 	timeType = 1,
 	numberOfPomodoros = 1,
 	stopped = false,
 	interval,
-	minutes = localStorage.getItem("workTime") - 1,
+	minutes = workTime - 1,
 	seconds = 59;
 
 // Countdown
@@ -46,7 +46,7 @@ const run = (next) => {
 
 // Set values and styles according to the time type
 const drawScreen = (type) => {
-	let times = [localStorage.getItem("workTime"), localStorage.getItem("shortBreakTime"), localStorage.getItem("longBreakTime")];
+	let times = [workTime, shortBreakTime, longBreakTime];
 	let colors = [workColor, shortBreakColor, longBreakColor];
 
 	timeType = type;
@@ -80,7 +80,7 @@ goButton.addEventListener("click", (e) => {
 			// Work Time
 			case 1:
 				if (minutes === -1) {
-					minutes = localStorage.getItem("workTime") - 1;
+					minutes = workTime - 1;
 					seconds = 59;
 				}
 
@@ -94,7 +94,7 @@ goButton.addEventListener("click", (e) => {
 			// Short Break Time
 			case 2:
 				if (minutes === -1) {
-					minutes = localStorage.getItem("shortBreakTime") - 1;
+					minutes = shortBreakTime - 1;
 					seconds = 59;
 				}
 
@@ -114,7 +114,7 @@ goButton.addEventListener("click", (e) => {
 			// Long Break Time
 			case 3:
 				if (minutes === -1) {
-					minutes = localStorage.getItem("longBreakTime") - 1;
+					minutes = longBreakTime - 1;
 					seconds = 59;
 				}
 

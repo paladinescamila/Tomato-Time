@@ -13,12 +13,12 @@ const saveSettingsButton = document.getElementById("save-settings");
 
 // Open settings window
 settingsButton.addEventListener("click", (e) => {
-	workValue.value = localStorage.getItem("workTime");
-	shortBreakValue.value = localStorage.getItem("shortBreakTime");
-	longBreakValue.value = localStorage.getItem("longBreakTime");
-	autoWorkValue.checked = localStorage.getItem("autoStartWork");
-	autoBreakValue.checked = localStorage.getItem("autoStartBreaks");
-	intervalValue.value = localStorage.getItem("longBreakInterval");
+	workValue.value = workTime;
+	shortBreakValue.value = shortBreakTime;
+	longBreakValue.value = longBreakTime;
+	intervalValue.value = longBreakInterval;
+	autoWorkValue.checked = autoStartWork;
+	autoBreakValue.checked = autoStartBreaks;
 
 	displaySettings.style.display = "flex";
 });
@@ -35,26 +35,26 @@ displaySettings.addEventListener("click", function (e) {
 
 // Save changes and close settings window
 saveSettingsButton.addEventListener("click", (e) => {
-	let oldWorkTime = localStorage.getItem("workTime"),
-		oldShortBreakTime = localStorage.getItem("shortBreakTime"),
-		oldLongBreakTime = localStorage.getItem("longBreakTime");
+	let oldWorkTime = workTime,
+		oldShortBreakTime = shortBreakTime,
+		oldLongBreakTime = longBreakTime;
 
 	// Update settings
-	localStorage.setItem("workTime", workValue.value <= 99 ? Number(workValue.value) : 25);
-	localStorage.setItem("shortBreakTime", shortBreakValue.value <= 99 ? Number(shortBreakValue.value) : 5);
-	localStorage.setItem("longBreakTime", longBreakValue.value <= 99 ? Number(longBreakValue.value) : 10);
-	localStorage.setItem("autoStartWork", autoWorkValue.checked);
-	localStorage.setItem("autoStartBreaks", autoBreakValue.checked);
-	localStorage.setItem("longBreakInterval", intervalValue.value <= 99 ? Number(intervalValue.value) : 4);
+	workTime = workValue.value <= 99 ? Number(workValue.value) : 25;
+	shortBreakTime = shortBreakValue.value <= 99 ? Number(shortBreakValue.value) : 5;
+	longBreakTime = longBreakValue.value <= 99 ? Number(longBreakValue.value) : 10;
+	longBreakInterval = intervalValue.value <= 99 ? Number(intervalValue.value) : 4;
+	autoStartWork = autoWorkValue.checked;
+	autoStartBreaks = autoBreakValue.checked;
 
 	// Did settings change the current clock?
-	let workChange = timeType === 1 && oldWorkTime !== localStorage.getItem("workTime"),
-		shortBreakChange = timeType === 2 && oldShortBreakTime !== localStorage.getItem("shortBreakTime"),
-		longBreakChange = timeType === 3 && oldLongBreakTime !== localStorage.getItem("longBreakTime");
+	let workChange = timeType === 1 && oldWorkTime !== workTime,
+		shortBreakChange = timeType === 2 && oldShortBreakTime !== shortBreakTime,
+		longBreakChange = timeType === 3 && oldLongBreakTime !== longBreakTime;
 
 	// If settings change, restart the clock
 	if (workChange || shortBreakChange || longBreakChange) {
-		let times = [localStorage.getItem("workTime"), localStorage.getItem("shortBreakTime"), localStorage.getItem("longBreakTime")];
+		let times = [workTime, shortBreakTime, longBreakTime];
 		timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
 		minutes = times[timeType - 1] - 1;
 		seconds = 59;
