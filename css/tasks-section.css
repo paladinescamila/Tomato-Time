@@ -142,6 +142,7 @@
 
 .new-container button {
 	border: none;
+	border-radius: var(--border-radius);
 	cursor: pointer;
 	padding: 0.5em;
 	font-weight: 700;

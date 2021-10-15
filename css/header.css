@@ -6,9 +6,8 @@ header {
 	font-size: 1.5em;
 	background-color: var(--theme-color);
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: space-between;
-	padding-bottom: 1em;
 	border-bottom: 1px solid var(--transparent-w-2);
 }
 
@@ -24,4 +23,8 @@ header button {
 
 header button > img {
 	width: 25px;
+}
+
+header button > img:first-of-type {
+	margin-right: 0.5em;
 }
