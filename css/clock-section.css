@@ -8,37 +8,18 @@
 	background-color: var(--theme-color);
 }
 
-.current-task {
-	border-radius: var(--border-radius);
-	color: var(--transparent-w-5);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	font-size: 1.5em;
-	padding: 0.3em;
-	max-width: 800px;
-	width: fit-content;
-}
-
-.timer {
-	font-size: 10.9em;
-	color: var(--white);
-	font-family: "Noto Sans Mono", monospace;
-	margin-bottom: 0.2em;
-}
-
 .time-types {
-	width: 500px;
-	margin-bottom: 3em;
+	width: 600px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	background-color: var(--transparent-w-2);
+	background-color: var(--transparent-w-1);
 	color: var(--white);
+	border-radius: 5em;
+	padding: 0.3em;
 }
 
 .time-types li {
-	border-bottom: 3px solid transparent;
+	border-radius: 5em;
 	padding: 1em;
 	display: flex;
 	align-items: center;
@@ -46,26 +27,62 @@
 	cursor: pointer;
 }
 
-.time-types li:hover {
-	background-color: var(--transparent-w-1);
+.time-types li:first-of-type {
+	background-color: var(--white);
+	color: var(--theme-color);
+	font-weight: 700;
 }
 
-.time-types li:first-of-type {
-	border-bottom: 3px solid var(--white);
+.timer {
+	font-family: "Noto Sans Mono", monospace;
+	font-size: 13em;
+	color: var(--white);
+	margin: 0.1em 0;
+}
+
+.time-bar {
+	width: 600px;
+	height: 10px;
+	background-color: var(--transparent-w-1);
+	border-radius: var(--border-radius);
+	margin: 1em 0 3em 0;
+}
+
+.time-bar div {
+	width: 0;
+	height: 100%;
+	background-color: var(--transparent-w-5);
+	border-radius: var(--border-radius);
+}
+
+@keyframes progres {
+	0% {
+		width: 0%;
+	}
+
+	50% {
+		width: 50%;
+	}
+
+	100% {
+		width: 100%;
+	}
 }
 
 .go-button {
-	width: 500px;
+	width: 70px;
+	height: 70px;
 	border: none;
-	padding: 0.5em;
-	border-radius: var(--border-radius);
-	font-size: 2em;
-	font-weight: 700;
-	background-color: var(--white);
-	color: var(--theme-color);
 	cursor: pointer;
+	background-color: transparent;
+	transition: transform 3s;
 }
 
-.go-button:hover {
-	opacity: 0.9;
+.go-button img {
+	width: 100%;
+	height: 100%;
+}
+
+.go-button:active {
+	transform: scale(0.5);
 }

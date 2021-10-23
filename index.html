@@ -17,14 +17,16 @@
 			</div>
 		</header>
 		<div class="clock-section" id="clock-section">
-			<p class="current-task" id="current-task">Time to focus!</p>
-			<div class="timer" id="timer"></div>
 			<ul class="time-types">
 				<li id="work-button">Work</li>
 				<li id="short-break-button">Short Break</li>
 				<li id="long-break-button">Long Break</li>
 			</ul>
-			<button class="go-button" id="go-button">Go</button>
+			<div class="timer" id="timer"></div>
+			<div class="time-bar">
+				<div id="progress"></div>
+			</div>
+			<button class="go-button" id="go-button"><img src="img/start.png" alt="Start" /></button>
 		</div>
 		<div class="tasks-section">
 			<p class="title">My tasks</p>
@@ -67,14 +69,17 @@
 				<p>Settings</p>
 				<div class="work-container">
 					<p>Work</p>
+					<button id="work-color"></button>
 					<input class="number-input" type="number" id="work-value" />
 				</div>
 				<div class="short-container">
 					<p>Short Break</p>
+					<button id="short-color"></button>
 					<input class="number-input" type="number" id="short-break-value" />
 				</div>
 				<div class="long-container">
 					<p>Long Break</p>
+					<button id="long-color"></button>
 					<input class="number-input" type="number" id="long-break-value" />
 				</div>
 				<div class="auto-inputs interval-container">
@@ -93,6 +98,14 @@
 				</div>
 				<button id="save-settings" class="save-settings">Save</button>
 				<button id="cancel-settings" class="x-cancel"><img src="img/x.svg" /></button>
+			</div>
+			<div class="pick-color">
+				<div id="red-bg" class="red-bg"></div>
+				<div id="cyan-bg" class="cyan-bg"></div>
+				<div id="blue-bg" class="blue-bg"></div>
+				<div id="green-bg" class="green-bg"></div>
+				<div id="orange-bg" class="orange-bg"></div>
+				<div id="pink-bg" class="pink-bg"></div>
 			</div>
 		</div>
 		<script src="js/settings.js"></script>

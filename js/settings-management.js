@@ -5,6 +5,9 @@ const settingsBox = document.getElementById("settings-box");
 const workValue = document.getElementById("work-value");
 const shortBreakValue = document.getElementById("short-break-value");
 const longBreakValue = document.getElementById("long-break-value");
+const workColorButton = document.getElementById("work-color");
+const shortColorButton = document.getElementById("short-color");
+const longColorButton = document.getElementById("long-color");
 const intervalValue = document.getElementById("interval-value");
 const autoWorkValue = document.getElementById("auto-work-value");
 const autoBreakValue = document.getElementById("auto-break-value");
@@ -19,6 +22,14 @@ settingsButton.addEventListener("click", (e) => {
 	intervalValue.value = longBreakInterval;
 	autoWorkValue.checked = autoStartWork;
 	autoBreakValue.checked = autoStartBreaks;
+
+	workColorButton.style.backgroundColor = workColor;
+	shortColorButton.style.backgroundColor = shortBreakColor;
+	longColorButton.style.backgroundColor = longBreakColor;
+
+	workValue.style.borderColor = workColor;
+	shortBreakValue.style.borderColor = shortBreakColor;
+	longBreakValue.style.borderColor = longBreakColor;
 
 	displaySettings.style.display = "flex";
 });
@@ -56,6 +67,7 @@ saveSettingsButton.addEventListener("click", (e) => {
 	if (workChange || shortBreakChange || longBreakChange) {
 		let times = [workTime, shortBreakTime, longBreakTime];
 		timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
+		progressBar.style.animation = "none";
 		minutes = times[timeType - 1] - 1;
 		seconds = 59;
 		stopped = true;

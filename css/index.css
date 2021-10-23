@@ -63,34 +63,43 @@ body::-webkit-scrollbar-thumb {
 	background-color: var(--transparent-w-3);
 }
 
-@media (max-width: 1000px) {
-	.tasks-container li img {
-		opacity: 0.7;
-	}
-}
-
 @media (max-width: 900px) {
 	header {
 		width: 90%;
 	}
 }
 
-@media (max-width: 650px) {
-	.current-task {
-		font-size: 1.2em;
+@media (max-width: 700px) {
+	.time-types,
+	.time-bar {
+		width: 550px;
 	}
 
 	.timer {
-		font-size: 9em;
+		font-size: 12em;
 	}
 
-	.time-types,
 	.go-button {
-		width: 400px;
+		width: 60px;
+		height: 60px;
 	}
 }
 
 @media (max-width: 600px) {
+	.time-types,
+	.time-bar {
+		width: 500px;
+	}
+
+	.timer {
+		font-size: 11em;
+	}
+
+	.go-button {
+		width: 50px;
+		height: 50px;
+	}
+
 	.settings-container,
 	.about-container {
 		width: 90%;
@@ -98,6 +107,24 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 550px) {
+	.time-types,
+	.time-bar {
+		width: 450px;
+	}
+
+	.time-types li {
+		font-size: 0.8em;
+	}
+
+	.timer {
+		font-size: 9em;
+	}
+
+	.go-button {
+		width: 45px;
+		height: 45px;
+	}
+
 	.tasks-container,
 	.add-task,
 	.new-container {
@@ -106,21 +133,18 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 500px) {
-	.current-task {
-		font-size: 0.9em;
+	.time-types,
+	.time-bar {
+		width: 400px;
 	}
 
 	.timer {
-		font-size: 6.5em;
+		font-size: 8.5em;
 	}
 
-	.time-types,
 	.go-button {
-		width: 300px;
-	}
-
-	.time-types {
-		font-size: 0.8em;
+		width: 40px;
+		height: 40px;
 	}
 
 	.settings-container {
@@ -159,13 +183,21 @@ body::-webkit-scrollbar-thumb {
 	.long-container .number-input {
 		margin: 0;
 	}
+}
 
-	.tasks-container li > div:first-of-type {
-		width: 80%;
+@media (max-width: 450px) {
+	.time-types,
+	.time-bar {
+		width: 350px;
 	}
 
-	.tasks-container li > div:nth-of-type(2) {
-		width: 20%;
+	.timer {
+		font-size: 7.5em;
+	}
+
+	.go-button {
+		width: 35px;
+		height: 35px;
 	}
 }
 
@@ -177,13 +209,5 @@ body::-webkit-scrollbar-thumb {
 	.as-break-container,
 	.interval-container {
 		font-size: 0.8em;
-	}
-
-	.tasks-container li > div:first-of-type {
-		width: 75%;
-	}
-
-	.tasks-container li > div:nth-of-type(2) {
-		width: 25%;
 	}
 }

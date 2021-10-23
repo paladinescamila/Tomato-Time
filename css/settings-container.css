@@ -37,22 +37,57 @@
 	align-items: flex-start;
 	font-size: 1.5em;
 	font-weight: 700;
-	/* background-color: royalblue; */
+}
+
+.work-container,
+.short-container,
+.long-container {
+	display: grid;
+	grid-gap: 0.3em;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		"title title"
+		"value color2";
+}
+
+.work-container p,
+.short-container p,
+.long-container p {
+	grid-area: title;
+	text-align: center;
+}
+
+.work-container button,
+.short-container button,
+.long-container button {
+	grid-area: color2;
+	border: none;
+	cursor: pointer;
+}
+
+.work-container button:hover,
+.short-container button:hover,
+.long-container button:hover {
+	opacity: 0.9;
+}
+
+.work-container input,
+.short-container input,
+.long-container input {
+	grid-area: value;
+	margin: 0;
 }
 
 .work-container {
 	grid-area: work;
-	/* background-color: salmon; */
 }
 
 .short-container {
 	grid-area: short;
-	/* background-color: greenyellow; */
 }
 
 .long-container {
 	grid-area: long;
-	/* background-color: blueviolet; */
 }
 
 .as-work-container {
@@ -111,15 +146,6 @@
 .interval-container input {
 	margin: 0;
 	width: 50%;
-}
-
-.work-container,
-.short-container,
-.long-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 }
 
 .auto-inputs {
@@ -182,4 +208,62 @@ input[type="number"] {
 
 .x-cancel:hover {
 	opacity: 0.8;
+}
+
+.pick-color {
+	border: 1px solid var(--gray-1);
+	box-shadow: var(--shadow);
+	border-radius: var(--border-radius);
+	background-color: var(--white);
+	padding: 0.5em;
+	width: 150px;
+	position: relative;
+	display: grid;
+	grid-gap: 0.5em;
+	grid-template-columns: repeat(5, 1fr);
+	display: none;
+}
+
+.pick-color::before {
+	content: "";
+	width: 20px;
+	height: 20px;
+	transform: rotate(45deg);
+	border: 1px solid var(--gray-1);
+	background-color: var(--white);
+	position: absolute;
+	top: 50px;
+	left: 60px;
+	z-index: -1;
+}
+
+.pick-color div {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.red-bg {
+	background-color: #e74545;
+}
+
+.cyan-bg {
+	background-color: #1a9aa3;
+}
+
+.blue-bg {
+	background-color: #456eb5;
+}
+
+.green-bg {
+	background-color: #1aa355;
+}
+
+.orange-bg {
+	background-color: #dbac1f;
+}
+
+.pink-bg {
+	background-color: #db1fbf;
 }

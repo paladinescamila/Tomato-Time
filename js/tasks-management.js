@@ -1,5 +1,4 @@
 // Elements
-const currentTask = document.getElementById("current-task");
 const tasksContainer = document.getElementById("tasks-container");
 const addTaskButton = document.getElementById("add-task");
 const newContainer = document.getElementById("new-container");
@@ -19,12 +18,14 @@ const taskElement = (task) => {
 			<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
 			<label for="done-${task.id}"></label>
 			<input id="description-${task.id}" type="text" value="${task.description}">
+			<input id="new-description-${task.id}" type="text" value="${task.description}">
 		</div>
 		<div>
-			<img id="clock-${task.id}" src="img/clock.png">
 			<img id="rename-${task.id}" src="img/rename.png">
 			<img id="delete-${task.id}" src="img/delete.png">
 		</div>
+		<button id="cancel-${task.id}">Cancel</button>
+		<button id="save-${task.id}">Save</button>
 	`;
 
 	return element;
@@ -35,39 +36,75 @@ const setTaskSettings = (i) => {
 	let taskContainer = document.getElementById(tasks[i].id),
 		taskCheckbox = document.getElementById(`done-${tasks[i].id}`),
 		taskDescription = document.getElementById(`description-${tasks[i].id}`),
-		taskClock = document.getElementById(`clock-${tasks[i].id}`),
 		taskRename = document.getElementById(`rename-${tasks[i].id}`),
-		taskDelete = document.getElementById(`delete-${tasks[i].id}`);
+		taskDelete = document.getElementById(`delete-${tasks[i].id}`),
+		taskNewDescription = document.getElementById(`new-description-${tasks[i].id}`),
+		taskCancel = document.getElementById(`cancel-${tasks[i].id}`),
+		taskSave = document.getElementById(`save-${tasks[i].id}`);
+
+	const changeStyles = () => {
+		taskDescription.style.display = "block";
+		taskNewDescription.style.display = "none";
+		taskContainer.style.display = "flex";
+		taskRename.style.display = "block";
+		taskDelete.style.display = "block";
+		taskCancel.style.display = "none";
+		taskSave.style.display = "none";
+	};
 
 	// Check or uncheck a task
 	taskCheckbox.addEventListener("change", (e) => {
 		tasks[i].done = taskCheckbox.checked;
 	});
 
-	// Set a task to work on it
-	taskClock.addEventListener("click", (e) => {
-		let tasksLength = tasks.length;
-		for (let j = 0; j < tasksLength; j++) tasks[j].current = false;
-		tasks[i].current = true;
-		currentTask.innerHTML = tasks[i].description;
-	});
-
 	// Rename a task
 	taskRename.addEventListener("click", (e) => {
 		let length = taskDescription.value.length;
-		taskDescription.focus();
-		taskDescription.setSelectionRange(length, length);
+		taskDescription.style.display = "none";
+		taskNewDescription.style.display = "block";
+		taskNewDescription.focus();
+		taskNewDescription.setSelectionRange(length, length);
+		taskNewDescription.style.pointerEvents = "auto";
+
+		taskContainer.style.display = "grid";
+		taskContainer.classList.add("grid-edit");
+		taskRename.style.display = "none";
+		taskDelete.style.display = "none";
+		taskCancel.style.display = "block";
+		taskSave.style.display = "block";
 	});
 
-	// Save the new name of the task
-	taskDescription.addEventListener("keyup", (e) => {
-		if (tasks[i].current) currentTask.innerHTML = taskDescription.value;
-		tasks[i].description = taskDescription.value;
+	// Save the new name of the task (Save button)
+	taskSave.addEventListener("click", (e) => {
+		tasks[i].description = taskNewDescription.value;
+		taskDescription.value = taskNewDescription.value;
+		changeStyles();
+	});
+
+	// Save the new name of the task (Enter)
+	taskNewDescription.addEventListener("keyup", (e) => {
+		if (e.keyCode === 13) {
+			event.preventDefault();
+			if (taskNewDescription.value !== "") taskSave.click();
+		}
+
+		if (taskNewDescription.value !== "") {
+			taskSave.style.opacity = 1;
+			taskSave.disabled = false;
+		} else {
+			taskSave.style.opacity = 0.7;
+			taskSave.disabled = true;
+		}
+	});
+
+	// Cancel rename task
+	taskCancel.addEventListener("click", (e) => {
+		taskNewDescription.value = taskDescription.value;
+		changeStyles();
 	});
 
 	// Delete a task
 	taskDelete.addEventListener("click", (e) => {
-		if (tasks[i].current) currentTask.innerHTML = "Time to focus!";
 		taskContainer.style.display = "none";
 		tasks[i].deleted = true;
 	});
@@ -95,7 +132,6 @@ saveTaskButton.addEventListener("click", () => {
 		id: new Date().getTime(),
 		description: newTaskValue.value.slice(0, 50),
 		done: false,
-		current: false,
 		deleted: false,
 	};
 

@@ -32,10 +32,19 @@
 	justify-content: space-between;
 }
 
+.grid-edit {
+	grid-gap: 1em;
+	grid-template-columns: 3fr repeat(2, 1fr);
+	grid-template-areas:
+		"input input input"
+		"empty cancel save";
+}
+
 .tasks-container li > div:first-of-type {
 	display: flex;
 	align-items: center;
-	width: 80%;
+	width: 100%;
+	grid-area: input;
 }
 
 .tasks-container li input[type="checkbox"] {
@@ -81,21 +90,25 @@
 	pointer-events: none;
 }
 
+.tasks-container li input[type="text"]:last-of-type {
+	display: none;
+}
+
 .tasks-container li > div:nth-of-type(2) {
-	width: 15%;
+	width: 45px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
+.tasks-container li button {
+	display: none;
+}
+
 .tasks-container li img {
 	cursor: pointer;
 	width: 17px;
-	opacity: 0;
-}
-
-.tasks-container li:hover img {
-	opacity: 0.7;
+	opacity: 0.5;
 }
 
 .tasks-container li img:hover {
@@ -114,7 +127,7 @@
 
 .add-task:hover {
 	background-color: var(--theme-color);
-	color: #fff;
+	color: var(--white);
 }
 
 .new-container {
@@ -140,7 +153,8 @@
 	opacity: 0.5;
 }
 
-.new-container button {
+.new-container button,
+.tasks-container li button {
 	border: none;
 	border-radius: var(--border-radius);
 	cursor: pointer;
@@ -148,14 +162,16 @@
 	font-weight: 700;
 }
 
-.new-container button:first-of-type {
+.new-container button:first-of-type,
+.tasks-container li button:first-of-type {
 	background-color: transparent;
 	color: var(--black);
 	opacity: 0.5;
 	grid-area: cancel;
 }
 
-.new-container button:nth-of-type(2) {
+.new-container button:nth-of-type(2),
+.tasks-container li button:nth-of-type(2) {
 	background-color: var(--theme-color);
 	color: #fff;
 	grid-area: save;

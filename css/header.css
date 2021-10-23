@@ -8,7 +8,6 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-bottom: 1px solid var(--transparent-w-2);
 }
 
 header > p {

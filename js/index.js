@@ -1,8 +1,9 @@
 // Elements
-const timerContainer = document.getElementById("timer");
 const workButton = document.getElementById("work-button");
 const shortBreakButton = document.getElementById("short-break-button");
 const longBreakButton = document.getElementById("long-break-button");
+const timerContainer = document.getElementById("timer");
+const progressBar = document.getElementById("progress");
 const goButton = document.getElementById("go-button");
 
 // Start settings
@@ -20,6 +21,7 @@ let timeNames = ["Work", "Short Break", "Long Break"],
 // Countdown
 const run = (next) => {
 	let time = minutes + 1;
+	progressBar.style.animation = `progres ${time * 60 - 1}s linear`;
 
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
@@ -54,12 +56,21 @@ const drawScreen = (type) => {
 	seconds = 59;
 	stopped = true;
 
-	workButton.style.borderBottom = type === 1 ? "3px solid var(--white)" : "3px solid transparent";
-	shortBreakButton.style.borderBottom = type === 2 ? "3px solid var(--white)" : "3px solid transparent";
-	longBreakButton.style.borderBottom = type === 3 ? "3px solid var(--white)" : "3px solid transparent";
+	workButton.style.backgroundColor = type === 1 ? "#fff" : "transparent";
+	shortBreakButton.style.backgroundColor = type === 2 ? "#fff" : "transparent";
+	longBreakButton.style.backgroundColor = type === 3 ? "#fff" : "transparent";
+
+	workButton.style.color = type === 1 ? "var(--theme-color)" : "#fff";
+	shortBreakButton.style.color = type === 2 ? "var(--theme-color)" : "#fff";
+	longBreakButton.style.color = type === 3 ? "var(--theme-color)" : "#fff";
+
+	workButton.style.fontWeight = type === 1 ? 700 : 500;
+	shortBreakButton.style.fontWeight = type === 2 ? 700 : 500;
+	longBreakButton.style.fontWeight = type === 3 ? 700 : 500;
 
 	document.querySelector(":root").style.setProperty("--theme-color", colors[type - 1]);
 	timerContainer.innerHTML = `${format(times[type - 1])}:00`;
+	progressBar.style.animation = "none";
 	goButton.click();
 };
 
@@ -71,11 +82,11 @@ longBreakButton.addEventListener("click", (e) => drawScreen(3));
 // Start or stop the countdown
 goButton.addEventListener("click", (e) => {
 	if (stopped) {
-		goButton.innerHTML = "Go";
+		goButton.innerHTML = `<img src="img/start.png" alt="Start" />`;
 		document.title = "Tomato Time";
 		clearInterval(interval);
 	} else {
-		goButton.innerHTML = "Stop";
+		goButton.innerHTML = `<img src="img/stop.png" alt="Stop" />`;
 		switch (timeType) {
 			// Work Time
 			case 1:
