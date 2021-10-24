@@ -55,20 +55,6 @@
 	border-radius: var(--border-radius);
 }
 
-@keyframes progres {
-	0% {
-		width: 0%;
-	}
-
-	50% {
-		width: 50%;
-	}
-
-	100% {
-		width: 100%;
-	}
-}
-
 .go-button {
 	width: 70px;
 	height: 70px;

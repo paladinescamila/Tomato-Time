@@ -21,11 +21,13 @@ let timeNames = ["Work", "Short Break", "Long Break"],
 // Countdown
 const run = (next) => {
 	let time = minutes + 1;
-	progressBar.style.animation = `progres ${time * 60 - 1}s linear`;
+	totalSeconds = time * (seconds + 1) - 1;
 
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
 		document.title = `${timeNames[timeType - 1]} (${timerContainer.innerHTML})`;
+		progressBar.style.width = `${100 - (totalSeconds * 100) / (time * 60)}%`;
+		totalSeconds--;
 		seconds--;
 
 		if (seconds === -1) {
@@ -70,7 +72,7 @@ const drawScreen = (type) => {
 
 	document.querySelector(":root").style.setProperty("--theme-color", colors[type - 1]);
 	timerContainer.innerHTML = `${format(times[type - 1])}:00`;
-	progressBar.style.animation = "none";
+	progressBar.style.width = "0";
 	goButton.click();
 };
 

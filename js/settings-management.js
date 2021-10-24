@@ -67,7 +67,7 @@ saveSettingsButton.addEventListener("click", (e) => {
 	if (workChange || shortBreakChange || longBreakChange) {
 		let times = [workTime, shortBreakTime, longBreakTime];
 		timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
-		progressBar.style.animation = "none";
+		progressBar.style.width = "0";
 		minutes = times[timeType - 1] - 1;
 		seconds = 59;
 		stopped = true;
