@@ -9,5 +9,4 @@ The following are the options you can do in the app:
 -   You can start the timer and focus on your work for 25 minutes (or whatever you have chosen).
 -   You can also time your long and short breaks.
 -   You can add tasks, edit or delete them.
--   You have the option of choosing a task to appear above the timer and see it when you are working.
--   You can customize your pomodoro in the icon that appears at the top.
+-   You can customize your pomodoro in the settings icon that appears at the top.
