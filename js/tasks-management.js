@@ -42,6 +42,7 @@ const setTaskSettings = (i) => {
 		taskCancel = document.getElementById(`cancel-${tasks[i].id}`),
 		taskSave = document.getElementById(`save-${tasks[i].id}`);
 
+	// Change styles when "rename task" container is going to be closed
 	const changeStyles = () => {
 		taskDescription.style.display = "block";
 		taskNewDescription.style.display = "none";
@@ -50,6 +51,8 @@ const setTaskSettings = (i) => {
 		taskDelete.style.display = "block";
 		taskCancel.style.display = "none";
 		taskSave.style.display = "none";
+		taskSave.style.opacity = 1;
+		taskSave.disabled = false;
 	};
 
 	// Check or uncheck a task
@@ -62,8 +65,8 @@ const setTaskSettings = (i) => {
 		let length = taskDescription.value.length;
 		taskDescription.style.display = "none";
 		taskNewDescription.style.display = "block";
-		taskNewDescription.focus();
 		taskNewDescription.setSelectionRange(length, length);
+		taskNewDescription.focus();
 		taskNewDescription.style.pointerEvents = "auto";
 
 		taskContainer.style.display = "grid";

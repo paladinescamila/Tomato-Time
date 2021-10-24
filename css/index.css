@@ -63,6 +63,8 @@ body::-webkit-scrollbar-thumb {
 	background-color: var(--transparent-w-3);
 }
 
+/* Responsive styles */
+
 @media (max-width: 900px) {
 	header {
 		width: 90%;
@@ -72,34 +74,20 @@ body::-webkit-scrollbar-thumb {
 @media (max-width: 700px) {
 	.time-types,
 	.time-bar {
-		width: 550px;
+		width: 90%;
 	}
 
 	.timer {
-		font-size: 12em;
+		font-size: 30vw;
 	}
 
 	.go-button {
-		width: 60px;
-		height: 60px;
+		width: 10%;
+		height: auto;
 	}
 }
 
 @media (max-width: 600px) {
-	.time-types,
-	.time-bar {
-		width: 500px;
-	}
-
-	.timer {
-		font-size: 11em;
-	}
-
-	.go-button {
-		width: 50px;
-		height: 50px;
-	}
-
 	.settings-container,
 	.about-container {
 		width: 90%;
@@ -107,22 +95,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 550px) {
-	.time-types,
-	.time-bar {
-		width: 450px;
-	}
-
 	.time-types li {
 		font-size: 0.8em;
-	}
-
-	.timer {
-		font-size: 9em;
-	}
-
-	.go-button {
-		width: 45px;
-		height: 45px;
 	}
 
 	.tasks-container,
@@ -133,20 +107,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 500px) {
-	.time-types,
-	.time-bar {
-		width: 400px;
-	}
-
-	.timer {
-		font-size: 8.5em;
-	}
-
-	.go-button {
-		width: 40px;
-		height: 40px;
-	}
-
 	.settings-container {
 		grid-gap: 0.5em;
 		grid-template-columns: repeat(2, 1fr);
@@ -185,38 +145,7 @@ body::-webkit-scrollbar-thumb {
 	}
 }
 
-@media (max-width: 450px) {
-	.time-types,
-	.time-bar {
-		width: 350px;
-	}
-
-	.timer {
-		font-size: 7.5em;
-	}
-
-	.go-button {
-		width: 35px;
-		height: 35px;
-	}
-}
-
 @media (max-width: 400px) {
-	.time-types,
-	.time-bar {
-		width: 300px;
-		font-size: 0.9em;
-	}
-
-	.timer {
-		font-size: 6em;
-	}
-
-	.go-button {
-		width: 30px;
-		height: 30px;
-	}
-
 	.work-container,
 	.short-container,
 	.long-container,

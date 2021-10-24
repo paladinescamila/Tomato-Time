@@ -27,10 +27,6 @@ settingsButton.addEventListener("click", (e) => {
 	shortColorButton.style.backgroundColor = shortBreakColor;
 	longColorButton.style.backgroundColor = longBreakColor;
 
-	workValue.style.borderColor = workColor;
-	shortBreakValue.style.borderColor = shortBreakColor;
-	longBreakValue.style.borderColor = longBreakColor;
-
 	displaySettings.style.display = "flex";
 });
 
