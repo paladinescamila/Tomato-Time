@@ -37,6 +37,7 @@ settingsButton.addEventListener("click", (e) => {
 // Close settings window (with 'x' button)
 cancelSettingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "none";
+	colorPicker.style.display = "none";
 });
 
 // Close settings window (clicking outside the box)
@@ -77,35 +78,23 @@ saveSettingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "none";
 });
 
-// Change color theme (work)
-workColorButton.addEventListener("click", (e) => {
-	colorPicker.style.display = "grid";
-	document.querySelector(":root").style.setProperty("--show-work", 1);
-	document.querySelector(":root").style.setProperty("--show-short", 0);
-	document.querySelector(":root").style.setProperty("--show-long", 0);
-	document.querySelector(":root").style.setProperty("--picker-left", "90px");
-	themeToChange = 1;
-});
+// Change color theme
+const changeColorTheme = (type, pt_small, pl_small, pt_big, pl_big) => {
+	colorPicker.style.display = "block";
+	themeToChange = type;
 
-// Change color theme (short break)
-shortColorButton.addEventListener("click", (e) => {
-	colorPicker.style.display = "grid";
-	document.querySelector(":root").style.setProperty("--show-work", 0);
-	document.querySelector(":root").style.setProperty("--show-short", 1);
-	document.querySelector(":root").style.setProperty("--show-long", 0);
-	document.querySelector(":root").style.setProperty("--picker-left", "260px");
-	themeToChange = 2;
-});
+	if (document.body.clientWidth <= 500) {
+		document.querySelector(":root").style.setProperty("--picker-top", pt_small + "px");
+		document.querySelector(":root").style.setProperty("--picker-left", settingsBox.clientWidth * pl_small + "px");
+	} else {
+		document.querySelector(":root").style.setProperty("--picker-top", pt_big + "px");
+		document.querySelector(":root").style.setProperty("--picker-left", settingsBox.clientWidth * pl_big + "px");
+	}
+};
 
-// Change color theme (lonk break)
-longColorButton.addEventListener("click", (e) => {
-	colorPicker.style.display = "grid";
-	document.querySelector(":root").style.setProperty("--show-work", 0);
-	document.querySelector(":root").style.setProperty("--show-short", 0);
-	document.querySelector(":root").style.setProperty("--show-long", 1);
-	document.querySelector(":root").style.setProperty("--picker-left", "390px");
-	themeToChange = 3;
-});
+workColorButton.addEventListener("click", (e) => changeColorTheme(1, 15, 0.71, 15, 0.15));
+shortColorButton.addEventListener("click", (e) => changeColorTheme(2, 60, 0.71, 15, 0.45));
+longColorButton.addEventListener("click", (e) => changeColorTheme(3, 107, 0.71, 15, 0.75));
 
 // Pick a color
 let colorKeys = ["red", "cyan", "blue", "green", "orange", "pink"];
@@ -116,20 +105,26 @@ for (let i = 0; i < colorKeys.length; i++) {
 		if (themeToChange === 1) {
 			workColor = colorValues[i];
 			workColorButton.style.backgroundColor = workColor;
-			document.querySelector(":root").style.setProperty("--show-work", 0);
 		}
 		if (themeToChange === 2) {
 			shortBreakColor = colorValues[i];
 			shortColorButton.style.backgroundColor = shortBreakColor;
-			document.querySelector(":root").style.setProperty("--show-short", 0);
 		}
 		if (themeToChange === 3) {
 			longBreakColor = colorValues[i];
 			longColorButton.style.backgroundColor = longBreakColor;
-			document.querySelector(":root").style.setProperty("--show-long", 0);
 		}
 
 		colorPicker.style.display = "none";
 		if (themeToChange === timeType) document.querySelector(":root").style.setProperty("--theme-color", colorValues[i]);
 	});
 }
+
+// Close color picker window (clicking outside the box)
+settingsBox.addEventListener("click", function (e) {
+	let withoutPicker = !colorPicker.contains(e.target),
+		withoutWork = !workColorButton.contains(e.target),
+		withoutShort = !shortColorButton.contains(e.target),
+		withoutLong = !longColorButton.contains(e.target);
+	if (withoutPicker && withoutWork && withoutShort && withoutLong) colorPicker.style.display = "none";
+});
