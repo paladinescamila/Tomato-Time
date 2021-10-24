@@ -125,8 +125,14 @@ body::-webkit-scrollbar-thumb {
 	.work-container,
 	.short-container,
 	.long-container {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1.5fr 2fr 1fr;
+		grid-template-areas: "title value color2";
+	}
+
+	.work-container p,
+	.short-container p,
+	.long-container p {
+		display: flex;
 		align-items: center;
 	}
 

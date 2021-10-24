@@ -63,6 +63,7 @@
 	grid-area: color2;
 	border: none;
 	cursor: pointer;
+	position: relative;
 }
 
 .work-container button:hover,
@@ -140,7 +141,6 @@
 
 .interval-container {
 	grid-area: interval;
-	/* background-color: aqua; */
 }
 
 .interval-container input {
@@ -211,30 +211,43 @@ input[type="number"] {
 }
 
 .pick-color {
-	border: 1px solid var(--gray-1);
-	box-shadow: var(--shadow);
 	border-radius: var(--border-radius);
-	background-color: var(--white);
+	background-color: #000;
 	padding: 0.5em;
 	width: 150px;
-	position: relative;
 	display: grid;
+	position: relative;
 	grid-gap: 0.5em;
 	grid-template-columns: repeat(5, 1fr);
+	position: absolute;
+	top: 25px;
+	left: var(--picker-left);
 	display: none;
 }
 
-.pick-color::before {
+.work-container button::before,
+.short-container button::before,
+.long-container button::before {
 	content: "";
 	width: 20px;
 	height: 20px;
 	transform: rotate(45deg);
-	border: 1px solid var(--gray-1);
-	background-color: var(--white);
+	background-color: #000;
 	position: absolute;
-	top: 50px;
-	left: 60px;
-	z-index: -1;
+	top: -40px;
+	left: 50px;
+}
+
+.work-container button::before {
+	opacity: var(--show-work);
+}
+
+.short-container button::before {
+	opacity: var(--show-short);
+}
+
+.long-container button::before {
+	opacity: var(--show-long);
 }
 
 .pick-color div {
@@ -242,6 +255,10 @@ input[type="number"] {
 	height: 20px;
 	border-radius: 50%;
 	cursor: pointer;
+}
+
+.pick-color div:hover {
+	opacity: 0.9;
 }
 
 .red-bg {
