@@ -249,27 +249,3 @@ input[type="number"] {
 .pick-color div:hover {
 	opacity: 0.9;
 }
-
-.red-bg {
-	background-color: #e74545;
-}
-
-.cyan-bg {
-	background-color: #1a9aa3;
-}
-
-.blue-bg {
-	background-color: #456eb5;
-}
-
-.green-bg {
-	background-color: #1aa355;
-}
-
-.orange-bg {
-	background-color: #dbac1f;
-}
-
-.pink-bg {
-	background-color: #db1fbf;
-}

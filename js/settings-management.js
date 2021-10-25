@@ -31,6 +31,7 @@ settingsButton.addEventListener("click", (e) => {
 	shortColorButton.style.backgroundColor = shortBreakColor;
 	longColorButton.style.backgroundColor = longBreakColor;
 
+	for (let i = 0; i < nColors; i++) document.getElementById(`${colorKeys[i]}-bg`).style.backgroundColor = colorValues[i];
 	displaySettings.style.display = "flex";
 });
 
@@ -97,10 +98,7 @@ shortColorButton.addEventListener("click", (e) => changeColorTheme(2, 60, 0.71, 
 longColorButton.addEventListener("click", (e) => changeColorTheme(3, 107, 0.71, 15, 0.75));
 
 // Pick a color
-let colorKeys = ["red", "cyan", "blue", "green", "orange", "pink"];
-let colorValues = ["#e74545", "#1a9aa3", "#456eb5", "#1aa355", "#dbac1f", "#db1fbf"];
-
-for (let i = 0; i < colorKeys.length; i++) {
+for (let i = 0; i < nColors; i++) {
 	document.getElementById(`${colorKeys[i]}-bg`).addEventListener("click", (e) => {
 		if (themeToChange === 1) {
 			workColor = colorValues[i];
