@@ -25,8 +25,8 @@
 
 	--main-font-family: "Poppins", sans-serif;
 
-	--picker-top: 25px;
-	--picker-left: 90px;
+	--picker-top: 0;
+	--picker-left: 0;
 }
 
 * {

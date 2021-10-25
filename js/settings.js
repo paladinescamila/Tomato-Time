@@ -4,13 +4,21 @@ let workTime = 25,
 	longBreakTime = 10;
 
 // Colors
-let colorKeys = ["red", "cyan", "blue", "green", "orange", "pink"],
-	colorValues = ["#e74545", "#1a9aa3", "#456eb5", "#1aa355", "#dbac1f", "#db1fbf"],
-	nColors = colorKeys.length;
+const COLORS = {
+	red: "#e74545",
+	orange: "#eb8715",
+	yellow: "#e0af26",
+	green: "#1aa355",
+	cyan: "#1a9aa3",
+	blue: "#456eb5",
+	purple: "#9d4fd1",
+	pink: "#de2f9e",
+	black: "#111",
+};
 
-let workColor = colorValues[0],
-	shortBreakColor = colorValues[1],
-	longBreakColor = colorValues[2];
+let workColor = COLORS.red,
+	shortBreakColor = COLORS.cyan,
+	longBreakColor = COLORS.blue;
 
 // Others
 let autoStartWork = true,

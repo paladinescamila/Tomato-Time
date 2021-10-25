@@ -22,7 +22,7 @@ body {
 }
 
 .logo img {
-	width: 30px;
+	width: 25px;
 	margin-right: 0.5em;
 }
 
@@ -134,6 +134,11 @@ body::-webkit-scrollbar-thumb {
 	.long-container p {
 		display: flex;
 		align-items: center;
+	}
+
+	.picker-container {
+		top: -100px;
+		left: 70%;
 	}
 
 	.auto-inputs {

@@ -13,7 +13,6 @@ const autoWorkValue = document.getElementById("auto-work-value");
 const autoBreakValue = document.getElementById("auto-break-value");
 const cancelSettingsButton = document.getElementById("cancel-settings");
 const saveSettingsButton = document.getElementById("save-settings");
-const colorPicker = document.getElementById("color-picker");
 
 // Variables
 let themeToChange = 1;
@@ -31,19 +30,32 @@ settingsButton.addEventListener("click", (e) => {
 	shortColorButton.style.backgroundColor = shortBreakColor;
 	longColorButton.style.backgroundColor = longBreakColor;
 
-	for (let i = 0; i < nColors; i++) document.getElementById(`${colorKeys[i]}-bg`).style.backgroundColor = colorValues[i];
 	displaySettings.style.display = "flex";
 });
 
 // Close settings window (with 'x' button)
 cancelSettingsButton.addEventListener("click", (e) => {
 	displaySettings.style.display = "none";
-	colorPicker.style.display = "none";
+	let colorPicker = document.getElementById("color-picker");
+	if (colorPicker) colorPicker.style.display = "none";
 });
 
 // Close settings window (clicking outside the box)
 displaySettings.addEventListener("click", function (e) {
 	if (!settingsBox.contains(e.target)) cancelSettingsButton.click();
+});
+
+// Close color picker window (clicking outside the box)
+settingsBox.addEventListener("click", function (e) {
+	let colorPicker = document.getElementById("color-picker");
+	if (colorPicker) {
+		let withoutPicker = !colorPicker.contains(e.target),
+			withoutWork = !workColorButton.contains(e.target),
+			withoutShort = !shortColorButton.contains(e.target),
+			withoutLong = !longColorButton.contains(e.target);
+
+		if (withoutPicker && withoutWork && withoutShort && withoutLong) colorPicker.style.display = "none";
+	}
 });
 
 // Save changes and close settings window
@@ -80,49 +92,55 @@ saveSettingsButton.addEventListener("click", (e) => {
 });
 
 // Change color theme
-const changeColorTheme = (type, pt_small, pl_small, pt_big, pl_big) => {
-	colorPicker.style.display = "block";
-	themeToChange = type;
+workColorButton.addEventListener("click", (e) => drawColorPicker(1));
+shortColorButton.addEventListener("click", (e) => drawColorPicker(2));
+longColorButton.addEventListener("click", (e) => drawColorPicker(3));
 
-	if (document.body.clientWidth <= 500) {
-		document.querySelector(":root").style.setProperty("--picker-top", pt_small + "px");
-		document.querySelector(":root").style.setProperty("--picker-left", settingsBox.clientWidth * pl_small + "px");
-	} else {
-		document.querySelector(":root").style.setProperty("--picker-top", pt_big + "px");
-		document.querySelector(":root").style.setProperty("--picker-left", settingsBox.clientWidth * pl_big + "px");
-	}
-};
+// Draw color picker
+const drawColorPicker = (type) => {
+	// Delete old color picker
+	let oldColorPicker = document.getElementById("color-picker");
+	if (oldColorPicker) oldColorPicker.remove();
 
-workColorButton.addEventListener("click", (e) => changeColorTheme(1, 15, 0.71, 15, 0.15));
-shortColorButton.addEventListener("click", (e) => changeColorTheme(2, 60, 0.71, 15, 0.45));
-longColorButton.addEventListener("click", (e) => changeColorTheme(3, 107, 0.71, 15, 0.75));
+	// Create a picker color element
+	let pickerElement = document.createElement("div");
+	pickerElement.setAttribute("id", "color-picker");
+	pickerElement.classList.add("picker-container");
+	pickerElement.innerHTML = `<div class="pick-color"></div>`;
 
-// Pick a color
-for (let i = 0; i < nColors; i++) {
-	document.getElementById(`${colorKeys[i]}-bg`).addEventListener("click", (e) => {
-		if (themeToChange === 1) {
-			workColor = colorValues[i];
-			workColorButton.style.backgroundColor = workColor;
-		}
-		if (themeToChange === 2) {
-			shortBreakColor = colorValues[i];
-			shortColorButton.style.backgroundColor = shortBreakColor;
-		}
-		if (themeToChange === 3) {
-			longBreakColor = colorValues[i];
-			longColorButton.style.backgroundColor = longBreakColor;
-		}
+	// Add picker to the settings
+	if (type === 1) workColorButton.insertAdjacentElement("afterend", pickerElement);
+	else if (type === 2) shortColorButton.insertAdjacentElement("afterend", pickerElement);
+	else longColorButton.insertAdjacentElement("afterend", pickerElement);
 
-		colorPicker.style.display = "none";
-		if (themeToChange === timeType) document.querySelector(":root").style.setProperty("--theme-color", colorValues[i]);
+	// Draw colors
+	let keys = Object.keys(COLORS),
+		colorPicker = document.getElementById("color-picker");
+
+	keys.forEach((color) => {
+		// Create color element
+		colorElement = document.createElement("div");
+		colorElement.setAttribute("id", `${color}-bg`);
+		colorPicker.firstElementChild.appendChild(colorElement);
+
+		// Paint color background
+		document.getElementById(`${color}-bg`).style.backgroundColor = COLORS[color];
+
+		// Set click event to pick the color
+		document.getElementById(`${color}-bg`).addEventListener("click", (e) => {
+			if (type === 1) {
+				workColor = COLORS[color];
+				workColorButton.style.backgroundColor = workColor;
+			} else if (type === 2) {
+				shortBreakColor = COLORS[color];
+				shortColorButton.style.backgroundColor = shortBreakColor;
+			} else {
+				longBreakColor = COLORS[color];
+				longColorButton.style.backgroundColor = longBreakColor;
+			}
+
+			colorPicker.style.display = "none";
+			if (type === timeType) document.querySelector(":root").style.setProperty("--theme-color", COLORS[color]);
+		});
 	});
-}
-
-// Close color picker window (clicking outside the box)
-settingsBox.addEventListener("click", function (e) {
-	let withoutPicker = !colorPicker.contains(e.target),
-		withoutWork = !workColorButton.contains(e.target),
-		withoutShort = !shortColorButton.contains(e.target),
-		withoutLong = !longColorButton.contains(e.target);
-	if (withoutPicker && withoutWork && withoutShort && withoutLong) colorPicker.style.display = "none";
-});
+};
