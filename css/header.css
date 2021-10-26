@@ -11,6 +11,16 @@ header {
 	border-bottom: 1px solid var(--transparent-w-2);
 }
 
+.logo {
+	display: flex;
+	align-items: center;
+}
+
+.logo img {
+	width: 25px;
+	margin-right: 0.5em;
+}
+
 header > p {
 	cursor: context-menu;
 }

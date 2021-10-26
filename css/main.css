@@ -1,0 +1,42 @@
+:root {
+	--white: #fefefe;
+	--gray-1: #ddd;
+
+	--main-bg-color: #fefefe;
+	--theme-color: #e74545;
+
+	--transparent-w-1: rgba(255, 255, 255, 0.1);
+	--transparent-w-2: rgba(255, 255, 255, 0.2);
+	--transparent-w-3: rgba(255, 255, 255, 0.3);
+	--transparent-w-4: rgba(255, 255, 255, 0.4);
+	--transparent-w-5: rgba(255, 255, 255, 0.5);
+
+	/* Text */
+	--small: 0.5em;
+	--normal: 1em;
+	--medium: 3em;
+	--large: 5em;
+	--larger: 10em;
+	--big: 13em;
+
+	--shadow: 0 0 5px 0.5px var(--gray-1);
+
+	--border-radius: 0.3em;
+
+	--main-font-family: "Poppins", sans-serif;
+
+	--picker-top: 0;
+	--picker-left: 0;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+}
+
+ul {
+	list-style: none;
+	padding-left: 0;
+}

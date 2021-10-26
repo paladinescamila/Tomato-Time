@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Noto+Sans+Mono&display=swap");
 @import url("normalize.css");
-@import url("settings.css");
+@import url("main.css");
 @import url("header.css");
-@import url("about-container.css");
-@import url("settings-container.css");
-@import url("clock-section.css");
-@import url("tasks-section.css");
+@import url("about.css");
+@import url("settings.css");
+@import url("clock.css");
+@import url("tasks.css");
 
 body {
 	background-color: var(--theme-color);
@@ -14,16 +14,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}
-
-.logo {
-	display: flex;
-	align-items: center;
-}
-
-.logo img {
-	width: 25px;
-	margin-right: 0.5em;
 }
 
 .signature {
