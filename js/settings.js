@@ -14,9 +14,6 @@ const autoBreakValue = document.getElementById("auto-break-value");
 const cancelSettingsButton = document.getElementById("cancel-settings");
 const saveSettingsButton = document.getElementById("save-settings");
 
-// Variables
-let themeToChange = 1;
-
 // Open settings window
 settingsButton.addEventListener("click", (e) => {
 	workValue.value = workTime;
@@ -88,6 +85,13 @@ saveSettingsButton.addEventListener("click", (e) => {
 		goButton.click();
 	}
 
+	// Update theme colors
+	workColor = workColorButton.style.backgroundColor;
+	shortBreakColor = shortColorButton.style.backgroundColor;
+	longBreakColor = longColorButton.style.backgroundColor;
+
+	let newColors = [workColor, shortBreakColor, longBreakColor];
+	document.querySelector(":root").style.setProperty("--theme-color", newColors[timeType - 1]);
 	displaySettings.style.display = "none";
 });
 
@@ -126,19 +130,11 @@ const drawColorPicker = (type) => {
 
 		// Set click event to pick the color
 		document.getElementById(`${color}-bg`).addEventListener("click", (e) => {
-			if (type === 1) {
-				workColor = COLORS[color];
-				workColorButton.style.backgroundColor = workColor;
-			} else if (type === 2) {
-				shortBreakColor = COLORS[color];
-				shortColorButton.style.backgroundColor = shortBreakColor;
-			} else {
-				longBreakColor = COLORS[color];
-				longColorButton.style.backgroundColor = longBreakColor;
-			}
+			if (type === 1) workColorButton.style.backgroundColor = COLORS[color];
+			else if (type === 2) shortColorButton.style.backgroundColor = COLORS[color];
+			else longColorButton.style.backgroundColor = COLORS[color];
 
 			colorPicker.style.display = "none";
-			if (type === timeType) document.querySelector(":root").style.setProperty("--theme-color", COLORS[color]);
 		});
 	});
 };
