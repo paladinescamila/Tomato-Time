@@ -20,13 +20,14 @@ let timeNames = ["Work", "Short Break", "Long Break"],
 
 // Countdown
 const run = (next) => {
-	let time = minutes + 1;
-	totalSeconds = time * (seconds + 1) - 1;
+	let totalSeconds = minutes * 60 + seconds,
+		times = [workTime, shortBreakTime, longBreakTime];
 
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
 		document.title = `${timeNames[timeType - 1]} (${timerContainer.innerHTML})`;
-		progressBar.style.width = `${100 - (totalSeconds * 100) / (time * 60)}%`;
+		progressBar.style.width = `${100 - (totalSeconds * 100) / (times[timeType - 1] * 60)}%`;
+
 		totalSeconds--;
 		seconds--;
 
@@ -36,7 +37,7 @@ const run = (next) => {
 		}
 
 		if (minutes === -1) {
-			timerContainer.innerHTML = `${format(time)}:00`;
+			timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
 			clearInterval(interval);
 
 			if (next != 0) {

@@ -117,7 +117,7 @@
 
 .add-task {
 	width: 500px;
-	border: none;
+	border: 2px dashed transparent;
 	border-radius: var(--border-radius);
 	padding: 1em;
 	color: var(--theme-color);
@@ -126,8 +126,8 @@
 }
 
 .add-task:hover {
-	background-color: var(--theme-color);
-	color: var(--white);
+	border: 2px dashed var(--theme-color);
+	background-color: var(--transparent-w-5);
 }
 
 .new-container {
