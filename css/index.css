@@ -89,6 +89,7 @@ body::-webkit-scrollbar-thumb {
 		font-size: 0.8em;
 	}
 
+	.title,
 	.tasks-container,
 	.add-task,
 	.new-container {

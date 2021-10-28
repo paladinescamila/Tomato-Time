@@ -5,11 +5,18 @@ const newContainer = document.getElementById("new-container");
 const cancelTaskButton = document.getElementById("cancel-task");
 const saveTaskButton = document.getElementById("save-task");
 const newTaskValue = document.getElementById("new-task");
+const moreOptionsButton = document.getElementById("more-options-button");
+const moreOptionsContainer = document.getElementById("more-options");
+const showHideDone = document.getElementById("show-hide-done");
+const deleteDone = document.getElementById("delete-done");
+const deleteUndone = document.getElementById("delete-undone");
+const deleteAll = document.getElementById("delete-all");
 
 // Start settings
-let tasks = [];
+let tasks = [],
+	hidden = false;
 
-// Create a task element (li)
+// Create a task element
 const taskElement = (task) => {
 	let element = document.createElement("li");
 	element.id = task.id;
@@ -142,6 +149,9 @@ saveTaskButton.addEventListener("click", () => {
 	tasksContainer.appendChild(taskElement(task));
 	setTaskSettings(tasks.length - 1);
 
+	document.getElementById(`rename-${task.id}`).click();
+	document.getElementById(`save-${task.id}`).click();
+
 	addTaskButton.style.display = "block";
 	newContainer.style.display = "none";
 	newTaskValue.value = "";
@@ -161,4 +171,49 @@ newTaskValue.addEventListener("keyup", (e) => {
 		saveTaskButton.style.opacity = 0.7;
 		saveTaskButton.disabled = true;
 	}
+});
+
+// Open more options window
+moreOptionsButton.addEventListener("click", (e) => {
+	moreOptionsContainer.style.display = "flex";
+});
+
+// Close more options window (clicking outside the box)
+document.body.addEventListener("click", (e) => {
+	if (!moreOptionsContainer.contains(e.target) && !moreOptionsButton.contains(e.target)) {
+		moreOptionsContainer.style.display = "none";
+	}
+});
+
+// Show or hide done tasks
+showHideDone.addEventListener("click", (e) => {
+	tasks.forEach((task) => {
+		if (!task.deleted && task.done) document.getElementById(task.id).style.display = hidden ? "flex" : "none";
+	});
+	moreOptionsContainer.style.display = "none";
+	if (hidden) showHideDone.innerHTML = `<img src="img/hide.png" alt="Hide done" /> Hide done tasks`;
+	else showHideDone.innerHTML = `<img src="img/show.png" alt="Show done" /> Show done tasks`;
+	hidden = !hidden;
+});
+
+// Delete done tasks
+deleteDone.addEventListener("click", (e) => {
+	tasks.forEach((task) => {
+		if (task.done) document.getElementById(`delete-${task.id}`).click();
+	});
+	moreOptionsContainer.style.display = "none";
+});
+
+// Delete undone tasks
+deleteUndone.addEventListener("click", (e) => {
+	tasks.forEach((task) => {
+		if (!task.done) document.getElementById(`delete-${task.id}`).click();
+	});
+	moreOptionsContainer.style.display = "none";
+});
+
+// Delete all tasks
+deleteAll.addEventListener("click", (e) => {
+	tasks.forEach((task) => document.getElementById(`delete-${task.id}`).click());
+	moreOptionsContainer.style.display = "none";
 });

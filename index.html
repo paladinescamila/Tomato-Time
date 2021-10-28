@@ -29,7 +29,18 @@
 			<button class="go-button" id="go-button"><img src="img/start.png" alt="Start" /></button>
 		</div>
 		<div class="tasks-section">
-			<p class="title">My tasks</p>
+			<div class="title">
+				<p>Tasks</p>
+				<div>
+					<img src="img/points.png" alt="More options" id="more-options-button" />
+					<div class="more-options" id="more-options">
+						<button id="show-hide-done"><img src="img/hide.png" alt="Hide done" /> Hide done tasks</button>
+						<button id="delete-done"><img src="img/done.png" alt="Delete done" /> Delete done tasks</button>
+						<button id="delete-undone"><img src="img/undone.png" alt="Delete undone" /> Delete undone tasks</button>
+						<button id="delete-all"><img src="img/delete.png" alt="Delete all" /> Delete all tasks</button>
+					</div>
+				</div>
+			</div>
 			<ul class="tasks-container" id="tasks-container"></ul>
 			<div class="new-container" id="new-container">
 				<input type="text" name="" placeholder="What are you going to do?" id="new-task" class="new-task" />

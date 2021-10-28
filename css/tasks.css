@@ -9,12 +9,72 @@
 }
 
 .title {
-	padding: 1em;
+	margin: 2em 1em;
+	padding-bottom: 0.5em;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	width: 500px;
+	border-bottom: 2px solid var(--gray-1);
+}
+
+.title p {
 	font-size: 2.5em;
 	font-weight: 700;
+}
+
+.title > div > img {
+	width: 40px;
+	padding: 0.5em;
+	opacity: 0.6;
+	border-radius: 50%;
+	background-color: #ddd;
+	cursor: pointer;
+}
+
+.title > div > img:hover {
+	opacity: 1;
+}
+
+.title > div {
+	position: relative;
+}
+
+.more-options {
+	background-color: #fff;
+	border: 2px solid #ddd;
+	padding: 0.5em;
+	display: none;
+	flex-direction: column;
+	border-radius: var(--border-radius);
+	position: absolute;
+	top: 45px;
+	right: 0;
+	width: 230px;
+	z-index: 100;
+}
+
+.more-options button {
+	background-color: transparent;
+	color: #555;
+	border: none;
+	padding: 0.5em;
+	text-align: start;
+	width: 100%;
+	border-radius: var(--border-radius);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.more-options button:hover {
+	background-color: #eee;
+}
+
+.more-options button img {
+	width: 17px;
+	margin-right: 0.5em;
+	opacity: 0.5;
 }
 
 .tasks-container {
