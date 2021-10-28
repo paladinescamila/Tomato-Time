@@ -16,7 +16,7 @@ const deleteAll = document.getElementById("delete-all");
 let tasks = [],
 	hidden = false;
 
-// Create a task element
+// Create a task element (li)
 const taskElement = (task) => {
 	let element = document.createElement("li");
 	element.id = task.id;
