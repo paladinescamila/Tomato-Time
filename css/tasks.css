@@ -42,14 +42,14 @@
 
 .more-options {
 	background-color: #fff;
-	border: 2px solid #ddd;
+	box-shadow: 0 0 10px 3px #ddd;
 	padding: 0.5em;
 	display: none;
 	flex-direction: column;
 	border-radius: var(--border-radius);
 	position: absolute;
-	top: 45px;
-	right: 0;
+	top: 50px;
+	right: -5px;
 	width: 230px;
 	z-index: 100;
 }

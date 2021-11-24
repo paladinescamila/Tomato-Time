@@ -187,13 +187,22 @@ document.body.addEventListener("click", (e) => {
 
 // Show or hide done tasks
 showHideDone.addEventListener("click", (e) => {
+	let changed = 0;
+
 	tasks.forEach((task) => {
-		if (!task.deleted && task.done) document.getElementById(task.id).style.display = hidden ? "flex" : "none";
+		if (!task.deleted && task.done) {
+			document.getElementById(task.id).style.display = hidden ? "flex" : "none";
+			changed++;
+		}
 	});
+
 	moreOptionsContainer.style.display = "none";
-	if (hidden) showHideDone.innerHTML = `<img src="img/hide.png" alt="Hide done" /> Hide done tasks`;
-	else showHideDone.innerHTML = `<img src="img/show.png" alt="Show done" /> Show done tasks`;
-	hidden = !hidden;
+
+	if (changed > 0) {
+		if (hidden) showHideDone.innerHTML = `<img src="img/hide.png" alt="Hide done" /> Hide done tasks`;
+		else showHideDone.innerHTML = `<img src="img/show.png" alt="Show done" /> Show done tasks`;
+		hidden = !hidden;
+	}
 });
 
 // Delete done tasks

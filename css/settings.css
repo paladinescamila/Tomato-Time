@@ -203,11 +203,11 @@ input[type="number"] {
 	align-items: center;
 	width: 18px;
 	height: 18px;
-	opacity: 1;
+	opacity: 0.3;
 }
 
 .x-cancel:hover {
-	opacity: 0.8;
+	opacity: 0.4;
 }
 
 .x-cancel img {

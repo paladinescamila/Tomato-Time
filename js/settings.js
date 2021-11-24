@@ -14,6 +14,22 @@ const autoBreakValue = document.getElementById("auto-break-value");
 const cancelSettingsButton = document.getElementById("cancel-settings");
 const saveSettingsButton = document.getElementById("save-settings");
 
+// Verify a number input
+const verify = (value) => {
+	let number = Number(value),
+		valid = 0;
+
+	// Input type
+	if (Number.isInteger(number)) valid++;
+	else alert("Please enter a valid number.");
+
+	// Input range
+	if (number >= 1 && number <= 99) valid++;
+	else alert("Please enter a number between 1 and 99.");
+
+	return valid === 2;
+};
+
 // Open settings window
 settingsButton.addEventListener("click", (e) => {
 	workValue.value = workTime;
@@ -57,42 +73,45 @@ settingsBox.addEventListener("click", function (e) {
 
 // Save changes and close settings window
 saveSettingsButton.addEventListener("click", (e) => {
-	let oldWorkTime = workTime,
-		oldShortBreakTime = shortBreakTime,
-		oldLongBreakTime = longBreakTime;
+	if (verify(workValue.value) && verify(shortBreakValue.value) && verify(longBreakValue.value) && verify(intervalValue.value)) {
+		// Old values of the times
+		let oldWorkTime = workTime,
+			oldShortBreakTime = shortBreakTime,
+			oldLongBreakTime = longBreakTime;
 
-	// Update settings
-	workTime = workValue.value <= 99 ? Number(workValue.value) : 25;
-	shortBreakTime = shortBreakValue.value <= 99 ? Number(shortBreakValue.value) : 5;
-	longBreakTime = longBreakValue.value <= 99 ? Number(longBreakValue.value) : 10;
-	longBreakInterval = intervalValue.value <= 99 ? Number(intervalValue.value) : 4;
-	autoStartWork = autoWorkValue.checked;
-	autoStartBreaks = autoBreakValue.checked;
+		// Update settings
+		workTime = Number(workValue.value);
+		shortBreakTime = Number(shortBreakValue.value);
+		longBreakTime = Number(longBreakValue.value);
+		longBreakInterval = Number(intervalValue.value);
+		autoStartWork = autoWorkValue.checked;
+		autoStartBreaks = autoBreakValue.checked;
 
-	// Did settings change the current clock?
-	let workChange = timeType === 1 && oldWorkTime !== workTime,
-		shortBreakChange = timeType === 2 && oldShortBreakTime !== shortBreakTime,
-		longBreakChange = timeType === 3 && oldLongBreakTime !== longBreakTime;
+		// Did settings change the current clock?
+		let workChange = timeType === 1 && oldWorkTime !== workTime,
+			shortBreakChange = timeType === 2 && oldShortBreakTime !== shortBreakTime,
+			longBreakChange = timeType === 3 && oldLongBreakTime !== longBreakTime;
 
-	// If settings change, restart the clock
-	if (workChange || shortBreakChange || longBreakChange) {
-		let times = [workTime, shortBreakTime, longBreakTime];
-		timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
-		progressBar.style.width = "0";
-		minutes = times[timeType - 1] - 1;
-		seconds = 59;
-		stopped = true;
-		goButton.click();
+		// If settings change, restart the clock
+		if (workChange || shortBreakChange || longBreakChange) {
+			let times = [workTime, shortBreakTime, longBreakTime];
+			timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
+			progressBar.style.width = "0";
+			minutes = times[timeType - 1] - 1;
+			seconds = 59;
+			stopped = true;
+			goButton.click();
+		}
+
+		// Update theme colors
+		workColor = workColorButton.style.backgroundColor;
+		shortBreakColor = shortColorButton.style.backgroundColor;
+		longBreakColor = longColorButton.style.backgroundColor;
+
+		let newColors = [workColor, shortBreakColor, longBreakColor];
+		document.querySelector(":root").style.setProperty("--theme-color", newColors[timeType - 1]);
+		displaySettings.style.display = "none";
 	}
-
-	// Update theme colors
-	workColor = workColorButton.style.backgroundColor;
-	shortBreakColor = shortColorButton.style.backgroundColor;
-	longBreakColor = longColorButton.style.backgroundColor;
-
-	let newColors = [workColor, shortBreakColor, longBreakColor];
-	document.querySelector(":root").style.setProperty("--theme-color", newColors[timeType - 1]);
-	displaySettings.style.display = "none";
 });
 
 // Change color theme
