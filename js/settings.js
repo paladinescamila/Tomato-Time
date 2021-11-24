@@ -16,18 +16,14 @@ const saveSettingsButton = document.getElementById("save-settings");
 
 // Verify a number input
 const verify = (value) => {
-	let number = Number(value),
-		valid = 0;
+	let number = Number(value);
 
-	// Input type
-	if (Number.isInteger(number)) valid++;
-	else alert("Please enter a valid number.");
+	if (Number.isInteger(number)) {
+		if (number >= 1 && number <= 99) return true;
+		else alert("Please enter a number between 1 and 99.");
+	} else alert("Please enter a valid number.");
 
-	// Input range
-	if (number >= 1 && number <= 99) valid++;
-	else alert("Please enter a number between 1 and 99.");
-
-	return valid === 2;
+	return false;
 };
 
 // Open settings window
