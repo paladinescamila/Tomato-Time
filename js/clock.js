@@ -25,7 +25,7 @@ const run = (next) => {
 
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
-		document.title = `${timeNames[timeType - 1]} (${timerContainer.innerHTML})`;
+		document.title = `${timerContainer.innerHTML} - ${timeNames[timeType - 1]}`;
 		progressBar.style.width = `${100 - (totalSeconds * 100) / (times[timeType - 1] * 60)}%`;
 
 		totalSeconds--;
