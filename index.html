@@ -75,40 +75,40 @@
 		</div>
 		<!-- Settings container -->
 		<div class="dark-bg" id="display-settings">
-			<div class="settings-container" id="settings-box">
+			<form class="settings-container" id="settings-box">
 				<p>Settings</p>
 				<div class="work-container">
-					<p>Work</p>
+					<label for="work-value">Work</label>
 					<input class="number-input" type="number" id="work-value" />
-					<button id="work-color"></button>
+					<div class="color-button" id="work-color"></div>
 				</div>
 				<div class="short-container">
-					<p>Short Break</p>
+					<label for="short-break-value">Short Break</label>
 					<input class="number-input" type="number" id="short-break-value" />
-					<button id="short-color"></button>
+					<div class="color-button" id="short-color"></div>
 				</div>
 				<div class="long-container">
-					<p>Long Break</p>
+					<label for="long-break-value">Long Break</label>
 					<input class="number-input" type="number" id="long-break-value" />
-					<button id="long-color"></button>
-				</div>
-				<div class="auto-inputs interval-container">
-					<p>Long Break interval</p>
-					<input class="number-input" type="number" id="interval-value" />
+					<div class="color-button" id="long-color"></div>
 				</div>
 				<div class="auto-inputs as-work-container">
-					<p for="auto-work-value">Auto start pomodoros?</p>
+					<p>Auto start pomodoros?</p>
 					<input type="checkbox" id="auto-work-value" />
 					<label for="auto-work-value"></label>
 				</div>
 				<div class="auto-inputs as-break-container">
-					<p for="auto-break-value">Auto start breaks?</p>
+					<p>Auto start breaks?</pfor=>
 					<input type="checkbox" id="auto-break-value" />
 					<label for="auto-break-value"></label>
 				</div>
+				<div class="auto-inputs interval-container">
+					<label for="interval-value">Long Break interval</label>
+					<input class="number-input" type="number" id="interval-value" />
+				</div>
 				<button id="save-settings" class="save-settings">Save</button>
 				<button id="cancel-settings" class="x-cancel"><img src="img/x.png" /></button>
-			</div>
+			</form>
 		</div>
 		<script src="js/data.js"></script>
 		<script src="js/tasks.js"></script>

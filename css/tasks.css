@@ -115,7 +115,7 @@
 	background-color: var(--theme-color);
 }
 
-.tasks-container li input[type="checkbox"]:checked ~ input {
+.tasks-container li input[type="checkbox"]:checked ~ input[type="text"] {
 	text-decoration: line-through;
 	opacity: 0.5;
 }
@@ -168,7 +168,7 @@
 .tasks-container li img {
 	cursor: pointer;
 	width: 17px;
-	opacity: 0.5;
+	opacity: 0.3;
 }
 
 .tasks-container li img:hover {

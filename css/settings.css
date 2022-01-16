@@ -51,24 +51,24 @@
 	position: relative;
 }
 
-.work-container p,
-.short-container p,
-.long-container p {
+.work-container label,
+.short-container label,
+.long-container label {
 	grid-area: title;
 	text-align: center;
 }
 
-.work-container button,
-.short-container button,
-.long-container button {
+.work-container .color-button,
+.short-container .color-button,
+.long-container .color-button {
 	grid-area: color2;
 	border: none;
 	cursor: pointer;
 }
 
-.work-container button:hover,
-.short-container button:hover,
-.long-container button:hover {
+.work-container .color-button:hover,
+.short-container .color-button:hover,
+.long-container .color-button:hover {
 	opacity: 0.9;
 }
 

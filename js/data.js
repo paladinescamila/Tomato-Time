@@ -1,7 +1,12 @@
-// Minutes
-let workTime = 25,
-	shortBreakTime = 5,
-	longBreakTime = 10;
+// Set Local Storage
+const setLS = (name, value, replace = true) => {
+	if (localStorage.getItem(name)) {
+		if (replace) localStorage.setItem(name, JSON.stringify(value));
+	} else localStorage.setItem(name, JSON.stringify(value));
+};
+
+// Get Local Storage
+const getLS = (name) => JSON.parse(localStorage.getItem(name));
 
 // Colors
 const COLORS = {
@@ -16,11 +21,18 @@ const COLORS = {
 	black: "#111",
 };
 
-let workColor = COLORS.red,
-	shortBreakColor = COLORS.cyan,
-	longBreakColor = COLORS.blue;
+// Set initial values
+setLS("workTime", 25, false);
+setLS("shortBreakTime", 5, false);
+setLS("longBreakTime", 10, false);
 
-// Others
-let autoStartWork = true,
-	autoStartBreaks = true,
-	longBreakInterval = 4;
+setLS("workColor", COLORS.red, false);
+setLS("shortBreakColor", COLORS.cyan, false);
+setLS("longBreakColor", COLORS.blue, false);
+
+setLS("autoStartWork", true, false);
+setLS("autoStartBreaks", true, false);
+setLS("longBreakInterval", 4, false);
+
+// Initial value for the theme
+document.querySelector(":root").style.setProperty("--theme-color", getLS("workColor"));

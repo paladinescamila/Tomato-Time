@@ -8,20 +8,20 @@ const goButton = document.getElementById("go-button");
 
 // Start settings
 const format = (n) => (n < 10 ? "0" + n : n);
-timerContainer.innerHTML = `${format(workTime)}:00`;
+timerContainer.innerHTML = `${format(getLS("workTime"))}:00`;
 
 let timeNames = ["Work", "Short Break", "Long Break"],
 	timeType = 1,
 	numberOfPomodoros = 1,
 	stopped = false,
 	interval,
-	minutes = workTime - 1,
+	minutes = getLS("workTime") - 1,
 	seconds = 59;
 
 // Countdown
 const run = (next) => {
 	let totalSeconds = minutes * 60 + seconds,
-		times = [workTime, shortBreakTime, longBreakTime];
+		times = [getLS("workTime"), getLS("shortBreakTime"), getLS("longBreakTime")];
 
 	interval = setInterval(() => {
 		timerContainer.innerHTML = `${format(minutes)}:${format(seconds)}`;
@@ -51,8 +51,8 @@ const run = (next) => {
 
 // Set values and styles according to the time type
 const drawScreen = (type) => {
-	let times = [workTime, shortBreakTime, longBreakTime];
-	let colors = [workColor, shortBreakColor, longBreakColor];
+	let times = [getLS("workTime"), getLS("shortBreakTime"), getLS("longBreakTime")];
+	let colors = [getLS("workColor"), getLS("shortBreakColor"), getLS("longBreakColor")];
 
 	timeType = type;
 	minutes = times[type - 1] - 1;
@@ -94,11 +94,11 @@ goButton.addEventListener("click", (e) => {
 			// Work Time
 			case 1:
 				if (minutes === -1) {
-					minutes = workTime - 1;
+					minutes = getLS("workTime") - 1;
 					seconds = 59;
 				}
 
-				if (autoStartBreaks) {
+				if (getLS("autoStartBreaks")) {
 					run(2);
 				} else {
 					run(0);
@@ -108,12 +108,12 @@ goButton.addEventListener("click", (e) => {
 			// Short Break Time
 			case 2:
 				if (minutes === -1) {
-					minutes = shortBreakTime - 1;
+					minutes = getLS("shortBreakTime") - 1;
 					seconds = 59;
 				}
 
-				if (autoStartWork) {
-					if (numberOfPomodoros < longBreakInterval) {
+				if (getLS("autoStartWork")) {
+					if (numberOfPomodoros < getLS("longBreakInterval")) {
 						numberOfPomodoros++;
 						run(1);
 					} else {
@@ -128,11 +128,11 @@ goButton.addEventListener("click", (e) => {
 			// Long Break Time
 			case 3:
 				if (minutes === -1) {
-					minutes = longBreakTime - 1;
+					minutes = getLS("longBreakTime") - 1;
 					seconds = 59;
 				}
 
-				if (autoStartWork) {
+				if (getLS("autoStartWork")) {
 					run(1);
 				} else {
 					run(0);

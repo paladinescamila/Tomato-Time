@@ -28,22 +28,23 @@ const verify = (value) => {
 
 // Open settings window
 settingsButton.addEventListener("click", (e) => {
-	workValue.value = workTime;
-	shortBreakValue.value = shortBreakTime;
-	longBreakValue.value = longBreakTime;
-	intervalValue.value = longBreakInterval;
-	autoWorkValue.checked = autoStartWork;
-	autoBreakValue.checked = autoStartBreaks;
+	workValue.value = getLS("workTime");
+	shortBreakValue.value = getLS("shortBreakTime");
+	longBreakValue.value = getLS("longBreakTime");
+	intervalValue.value = getLS("longBreakInterval");
+	autoWorkValue.checked = getLS("autoStartWork");
+	autoBreakValue.checked = getLS("autoStartBreaks");
 
-	workColorButton.style.backgroundColor = workColor;
-	shortColorButton.style.backgroundColor = shortBreakColor;
-	longColorButton.style.backgroundColor = longBreakColor;
+	workColorButton.style.backgroundColor = getLS("workColor");
+	shortColorButton.style.backgroundColor = getLS("shortBreakColor");
+	longColorButton.style.backgroundColor = getLS("longBreakColor");
 
 	displaySettings.style.display = "flex";
 });
 
 // Close settings window (with 'x' button)
 cancelSettingsButton.addEventListener("click", (e) => {
+	e.preventDefault();
 	displaySettings.style.display = "none";
 	let colorPicker = document.getElementById("color-picker");
 	if (colorPicker) colorPicker.style.display = "none";
@@ -69,28 +70,30 @@ settingsBox.addEventListener("click", function (e) {
 
 // Save changes and close settings window
 saveSettingsButton.addEventListener("click", (e) => {
+	e.preventDefault();
+
 	if (verify(workValue.value) && verify(shortBreakValue.value) && verify(longBreakValue.value) && verify(intervalValue.value)) {
 		// Old values of the times
-		let oldWorkTime = workTime,
-			oldShortBreakTime = shortBreakTime,
-			oldLongBreakTime = longBreakTime;
+		let oldWorkTime = getLS("workTime"),
+			oldShortBreakTime = getLS("shortBreakTime"),
+			oldLongBreakTime = getLS("longBreakTime");
 
 		// Update settings
-		workTime = Number(workValue.value);
-		shortBreakTime = Number(shortBreakValue.value);
-		longBreakTime = Number(longBreakValue.value);
-		longBreakInterval = Number(intervalValue.value);
-		autoStartWork = autoWorkValue.checked;
-		autoStartBreaks = autoBreakValue.checked;
+		setLS("workTime", Number(workValue.value));
+		setLS("shortBreakTime", Number(shortBreakValue.value));
+		setLS("longBreakTime", Number(longBreakValue.value));
+		setLS("longBreakInterval", Number(intervalValue.value));
+		setLS("autoStartWork", autoWorkValue.checked);
+		setLS("autoStartBreaks", autoBreakValue.checked);
 
 		// Did settings change the current clock?
-		let workChange = timeType === 1 && oldWorkTime !== workTime,
-			shortBreakChange = timeType === 2 && oldShortBreakTime !== shortBreakTime,
-			longBreakChange = timeType === 3 && oldLongBreakTime !== longBreakTime;
+		let workChange = timeType === 1 && oldWorkTime !== getLS("workTime"),
+			shortBreakChange = timeType === 2 && oldShortBreakTime !== getLS("shortBreakTime"),
+			longBreakChange = timeType === 3 && oldLongBreakTime !== getLS("longBreakTime");
 
 		// If settings change, restart the clock
 		if (workChange || shortBreakChange || longBreakChange) {
-			let times = [workTime, shortBreakTime, longBreakTime];
+			let times = [getLS("workTime"), getLS("shortBreakTime"), getLS("longBreakTime")];
 			timerContainer.innerHTML = `${format(times[timeType - 1])}:00`;
 			progressBar.style.width = "0";
 			minutes = times[timeType - 1] - 1;
@@ -100,11 +103,11 @@ saveSettingsButton.addEventListener("click", (e) => {
 		}
 
 		// Update theme colors
-		workColor = workColorButton.style.backgroundColor;
-		shortBreakColor = shortColorButton.style.backgroundColor;
-		longBreakColor = longColorButton.style.backgroundColor;
+		setLS("workColor", workColorButton.style.backgroundColor);
+		setLS("shortBreakColor", shortColorButton.style.backgroundColor);
+		setLS("longBreakColor", longColorButton.style.backgroundColor);
 
-		let newColors = [workColor, shortBreakColor, longBreakColor];
+		let newColors = [getLS("workColor"), getLS("shortBreakColor"), getLS("longBreakColor")];
 		document.querySelector(":root").style.setProperty("--theme-color", newColors[timeType - 1]);
 		displaySettings.style.display = "none";
 	}
