@@ -24,7 +24,7 @@ const taskElement = (task) => {
 		<div>
 			<input id="done-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
 			<label for="done-${task.id}"></label>
-			<input id="description-${task.id}" type="text" value="${task.description}">
+			<p id="description-${task.id}">${task.description}</p>
 			<input id="new-description-${task.id}" type="text" value="${task.description}">
 		</div>
 		<div>
@@ -72,7 +72,7 @@ const setTaskSettings = (i) => {
 
 	// Rename a task
 	taskRename.addEventListener("click", (e) => {
-		let length = taskDescription.value.length;
+		let length = taskDescription.innerHTML.length;
 		taskDescription.style.display = "none";
 		taskNewDescription.style.display = "block";
 		taskNewDescription.setSelectionRange(length, length);
@@ -89,10 +89,11 @@ const setTaskSettings = (i) => {
 
 	// Save the new name of the task (Save button)
 	taskSave.addEventListener("click", (e) => {
+		taskNewDescription.value = taskNewDescription.value.trim();
 		let tasks = getLS("tasks");
 		tasks[i].description = taskNewDescription.value;
 		setLS("tasks", tasks);
-		taskDescription.value = taskNewDescription.value;
+		taskDescription.innerHTML = taskNewDescription.value;
 		changeStyles();
 	});
 
@@ -100,10 +101,10 @@ const setTaskSettings = (i) => {
 	taskNewDescription.addEventListener("keyup", (e) => {
 		if (e.keyCode === 13) {
 			event.preventDefault();
-			if (taskNewDescription.value !== "") taskSave.click();
+			if (taskNewDescription.value.trim() !== "") taskSave.click();
 		}
 
-		if (taskNewDescription.value !== "") {
+		if (taskNewDescription.value.trim() !== "") {
 			taskSave.style.opacity = 1;
 			taskSave.disabled = false;
 		} else {
@@ -114,15 +115,15 @@ const setTaskSettings = (i) => {
 
 	// Cancel rename task
 	taskCancel.addEventListener("click", (e) => {
-		taskNewDescription.value = taskDescription.value;
+		taskNewDescription.value = taskDescription.innerHTML.trim();
 		changeStyles();
 	});
 
 	// Delete a task
 	taskDelete.addEventListener("click", (e) => {
-		taskContainer.style.display = "none";
+		tasksContainer.removeChild(taskContainer);
 		let tasks = getLS("tasks");
-		tasks[i].deleted = true;
+		tasks = tasks.filter((t) => t.id !== taskID);
 		setLS("tasks", tasks);
 	});
 };
@@ -147,9 +148,8 @@ cancelTaskButton.addEventListener("click", () => {
 saveTaskButton.addEventListener("click", () => {
 	let task = {
 		id: new Date().getTime(),
-		description: newTaskValue.value.slice(0, 50),
+		description: newTaskValue.value.trim(),
 		done: false,
-		deleted: false,
 	};
 
 	let tasks = getLS("tasks");
@@ -170,10 +170,10 @@ saveTaskButton.addEventListener("click", () => {
 newTaskValue.addEventListener("keyup", (e) => {
 	if (e.keyCode === 13) {
 		event.preventDefault();
-		if (newTaskValue.value !== "") saveTaskButton.click();
+		if (newTaskValue.value.trim() !== "") saveTaskButton.click();
 	}
 
-	if (newTaskValue.value !== "") {
+	if (newTaskValue.value.trim() !== "") {
 		saveTaskButton.style.opacity = 1;
 		saveTaskButton.disabled = false;
 	} else {
@@ -183,8 +183,7 @@ newTaskValue.addEventListener("keyup", (e) => {
 });
 
 // Paint tasks
-let tasks = getLS("tasks").filter((t) => !t.deleted);
-setLS("tasks", tasks);
+let tasks = getLS("tasks");
 for (let i = 0; i < tasks.length; i++) {
 	tasksContainer.appendChild(taskElement(tasks[i]));
 	setTaskSettings(i);
@@ -210,7 +209,7 @@ showHideDone.addEventListener("click", (e) => {
 	let changed = 0;
 
 	getLS("tasks").forEach((task) => {
-		if (!task.deleted && task.done) {
+		if (task.done) {
 			document.getElementById(task.id).style.display = hidden ? "flex" : "none";
 			changed++;
 		}
@@ -227,7 +226,7 @@ showHideDone.addEventListener("click", (e) => {
 
 // Delete done tasks
 deleteDone.addEventListener("click", (e) => {
-	let tasks = getLS("tasks").filter((t) => !t.deleted);
+	let tasks = getLS("tasks");
 	tasks.forEach((task) => {
 		if (task.done) document.getElementById(`delete-${task.id}`).click();
 	});
@@ -236,7 +235,7 @@ deleteDone.addEventListener("click", (e) => {
 
 // Delete undone tasks
 deleteUndone.addEventListener("click", (e) => {
-	let tasks = getLS("tasks").filter((t) => !t.deleted);
+	let tasks = getLS("tasks");
 	tasks.forEach((task) => {
 		if (!task.done) document.getElementById(`delete-${task.id}`).click();
 	});
@@ -245,7 +244,7 @@ deleteUndone.addEventListener("click", (e) => {
 
 // Delete all tasks
 deleteAll.addEventListener("click", (e) => {
-	let tasks = getLS("tasks").filter((t) => !t.deleted);
+	let tasks = getLS("tasks");
 	tasks.forEach((task) => document.getElementById(`delete-${task.id}`).click());
 	moreOptionsContainer.style.display = "none";
 });

@@ -120,11 +120,10 @@ body::-webkit-scrollbar-thumb {
 		grid-template-areas: "title value color2";
 	}
 
-	.work-container p,
-	.short-container p,
-	.long-container p {
-		display: flex;
-		align-items: center;
+	.work-container label,
+	.short-container label,
+	.long-container label {
+		justify-content: start;
 	}
 
 	.picker-container {

@@ -55,7 +55,9 @@
 .short-container label,
 .long-container label {
 	grid-area: title;
-	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .work-container .color-button,
