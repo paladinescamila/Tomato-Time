@@ -1,5 +1,6 @@
 header {
 	height: 13vh;
+	min-height: 100px;
 	width: 800px;
 	color: var(--white);
 	font-weight: 700;

@@ -1,5 +1,6 @@
 .clock-section {
 	width: 100%;
+	min-height: 620px;
 	height: 87vh;
 	display: flex;
 	flex-direction: column;
